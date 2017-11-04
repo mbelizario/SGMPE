@@ -46,7 +46,7 @@
 		<div class="divider"></div>
 
 		<ul class="nav menu">
-			<li class="active"><a href="index.html"><em class="fa fa-home">&nbsp;</em> Página inicial</a></li>
+			<li class="active"><a href="<?php echo base_url('home')?>"><em class="fa fa-home">&nbsp;</em> Página inicial</a></li>
 			<li><a href="widgets.html"><em class="fa fa-users">&nbsp;</em> Clientes</a></li>
       <li><a href="widgets.html"><em class="fa fa-truck">&nbsp;</em> Fornecedores</a></li>
       <li><a href="widgets.html"><em class="fa fa-tags">&nbsp;</em> Produtos</a></li>
@@ -63,6 +63,7 @@
         </ul>
       </li>
 			<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Relatórios</a></li>
+			<li><a href="widgets.html"><em class="fa fa-user">&nbsp;</em> Usuários</a></li>
       <li><a href="widgets.html"><em class="fa fa-book">&nbsp;</em> Documentação</a></li>
 			<li><a href="panels.html"><em class="fa fa-cogs">&nbsp;</em>Configurações</a></li>
 		</ul>
