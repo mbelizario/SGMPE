@@ -8,6 +8,8 @@
 	<link href="public/css/font-awesome.min.css" rel="stylesheet">
 	<link href="public/css/datepicker3.css" rel="stylesheet">
 	<link href="public/css/styles.css" rel="stylesheet">
+	<link href="public/css/toolbar.css" rel="stylesheet">
+	<link href="public/css/table-list.css" rel="stylesheet">
 
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -16,6 +18,15 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 </head>
+<script src="public/js/jquery-3.2.1.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/chart.min.js"></script>
+<script src="public/js/chart-data.js"></script>
+<script src="public/js/easypiechart.js"></script>
+<script src="public/js/easypiechart-data.js"></script>
+<script src="public/js/bootstrap-datepicker.js"></script>
+<script src="public/js/custom.js"></script>
+<script src="public/js/table-list.js"></script>
 <body>
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
@@ -63,7 +74,7 @@
         </ul>
       </li>
 			<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Relatórios</a></li>
-			<li><a href="widgets.html"><em class="fa fa-user">&nbsp;</em> Usuários</a></li>
+			<li><a href="<?php echo base_url('users')?>"><em class="fa fa-user">&nbsp;</em> Usuários</a></li>
       <li><a href="widgets.html"><em class="fa fa-book">&nbsp;</em> Documentação</a></li>
 			<li><a href="panels.html"><em class="fa fa-cogs">&nbsp;</em>Configurações</a></li>
 		</ul>
@@ -72,14 +83,7 @@
     {content_for_layout}
 	</div>	<!--/.main-->
 
-	<script src="public/js/jquery-1.11.1.min.js"></script>
-	<script src="public/js/bootstrap.min.js"></script>
-	<script src="public/js/chart.min.js"></script>
-	<script src="public/js/chart-data.js"></script>
-	<script src="public/js/easypiechart.js"></script>
-	<script src="public/js/easypiechart-data.js"></script>
-	<script src="public/js/bootstrap-datepicker.js"></script>
-	<script src="public/js/custom.js"></script>
+
 	<script>
 		window.onload = function () {
 	var chart1 = document.getElementById("line-chart").getContext("2d");
