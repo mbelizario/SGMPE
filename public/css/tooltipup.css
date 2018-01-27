@@ -1,0 +1,42 @@
+element {
+}
+
+.f-wrap .tooltip-up, .i-wrap .tooltip-up, .s-wrap .tooltip-up, .c-wrap .tooltip-up {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    z-index: 2;
+}
+.tooltip, .tooltip-down, .tooltip-up {
+    position: relative;
+    display: inline-block;
+    background: #f33;
+    padding: 4px 8px;
+    color: #fff;
+    font-size: 11px;
+    line-height: 11px;
+    text-align: left;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.tooltip-up::before {
+    width: 0;
+    height: 0;
+    content: " ";
+    border: 6px solid transparent;
+        border-top-width: 6px;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    border: 6px solid transparent\9;
+    border-bottom-color: #f33;
+    border-top-width: 0;
+    position: absolute;
+    pointer-events: none;
+    bottom: 100%;
+    left: 20px;
+    margin-left: -6px;
+}
