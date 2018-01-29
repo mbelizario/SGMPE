@@ -34,7 +34,7 @@
         <div class="panel-body">
           <?php if($users):?>
           <!-- <div class="col-md-12"> -->
-            <div class="table-responsive">
+            <div class="table">
               <table class="table table table-list" id="table-users">
                 <thead>
                   <th></th>

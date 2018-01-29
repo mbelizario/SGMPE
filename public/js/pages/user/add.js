@@ -15,7 +15,6 @@ $('#add-btn').on('click', function(){
     pass        : pass,
     confirmPass : confirmPass
   };
-console.log(dataString);
   $.ajax({
     type: "POST",
     url: base_url+'users/add',

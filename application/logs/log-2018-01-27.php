@@ -224,3 +224,4 @@ ERROR - 2018-01-27 18:28:17 --> Severity: Notice --> Undefined variable: result_
 ERROR - 2018-01-27 18:59:14 --> Severity: error --> Exception: syntax error, unexpected 'W' (T_STRING), expecting ',' or ')' /opt/lampp/htdocs/SGMPE/application/controllers/Users.php 60
 ERROR - 2018-01-27 19:46:24 --> Severity: error --> Exception: Call to undefined method User::delete() /opt/lampp/htdocs/SGMPE/application/controllers/Users.php 155
 ERROR - 2018-01-27 19:54:57 --> Severity: error --> Exception: syntax error, unexpected 'endif' (T_ENDIF), expecting ',' or ';' /opt/lampp/htdocs/SGMPE/application/views/pages/user/index.php 66
+ERROR - 2018-01-27 23:37:52 --> 404 Page Not Found: Login/index

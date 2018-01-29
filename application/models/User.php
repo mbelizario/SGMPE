@@ -37,12 +37,13 @@ class User extends CI_Model {
   //************************************************
   function add()
   {
+    $key = '$2a$07$usesomadasdsadsadsadasdasdasdsadesillystringfors';
     $data = array(
         'firstname' => $this->firstname,
         'lastname' => $this->lastname,
         'email' => $this->email,
         'username' => $this->username,
-        'pass' => $this->pass,
+        'pass' => crypt($this->pass, $key),
         'accesslevel' => $this->accessLevel
     );
     $this->db->insert('users', $data);
@@ -64,6 +65,14 @@ class User extends CI_Model {
     return true;
   }
   //*******************************************************
+  //Remove um usuário com base em seu id
+  //*******************************************************
+  function delete()
+  {
+    $this->db->where('id',$this->id);
+    $this->db->delete('users');
+  }
+  //*******************************************************
   //Verifica se um nome de usuário está disponivel ou não,
   //se estiver retorna true, se nao retorna false
   //*******************************************************
@@ -76,7 +85,7 @@ class User extends CI_Model {
     }
     else//insert
     {
-        $result = $this->db->query("select count(*) from users where
+        $result = $this->db->query("SELECT count(*) FROM users WHERE
         username = '$this->username';")->result();
     }
     //descobri esse indice usando a error_log
@@ -85,13 +94,19 @@ class User extends CI_Model {
     else
       return false;
   }
-  //*******************************************************
-  //Remove um usuário com base em seu id
-  //*******************************************************
-  function delete()
+
+  function authenticate()
   {
-    $this->db->where('id',$this->id);
-    $this->db->delete('users');
+    $key = '$2a$07$usesomadasdsadsadsadasdasdasdsadesillystringfors';
+    $pass_encryp = crypt($this->pass, $key);
+    $result = $this->db->query("SELECT count(*) FROM users WHERE
+     username = '$this->username' AND pass = '$pass_encryp'")->result();
+     //descobri esse indice usando a error_log
+     if($result[0]->count == 1) //autenticou
+       return true;
+     else // não autenticou
+       return false;
   }
+
 
 }

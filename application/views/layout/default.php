@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{title_for_layout}</title>
 	<link href="<?php echo base_url('public/css/bootstrap.min.css')?>" rel="stylesheet">
+	<link href="<?php echo base_url('public/css/responsive.bootstrap.css')?>" rel="stylesheet">
+	<link href="<?php echo base_url('public/css/datatables.min.css')?>" rel="stylesheet">
 	<link href="<?php echo base_url('public/css/font-awesome.min.css')?>" rel="stylesheet">
 	<link href="<?php echo base_url('public/css/datepicker3.css')?>" rel="stylesheet">
 	<link href="<?php echo base_url('public/css/styles.css')?>" rel="stylesheet">
@@ -21,6 +23,9 @@
 </head>
 <script src="<?php echo base_url('public/js/jquery-3.2.1.js')?>"></script>
 <script src="<?php echo base_url('public/js/bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/dtconfig.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/datatables.min.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/dataTables.responsive.js')?>"></script>
 <script src="<?php echo base_url('public/js/chart.min.js')?>"></script>
 <script src="<?php echo base_url('public/js/chart-data.js')?>"></script>
 <script src="<?php echo base_url('public/js/easypiechart.js')?>"></script>
@@ -39,7 +44,7 @@
 					<span class="icon-bar"></span></button>
 				<a class="navbar-brand" href="#"><span>SG</span>MPE</a>
 				<ul class="nav navbar-top-links navbar-right">
-          <a href="logout.php" class="navbar-brand" style="text-transform:None; font-size: 15px"><strong><em class="fa fa-power-off">&nbsp;</em>Sair</strong></a>
+          <a href="<?php echo base_url('login/logout')?>" class="navbar-brand" style="text-transform:None; font-size: 15px"><strong><em class="fa fa-power-off">&nbsp;</em>Sair</strong></a>
           <!-- <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a> -->
 				</ul>
 			</div>
@@ -59,7 +64,7 @@
 		<div class="divider"></div>
 
 		<ul class="nav menu">
-			<li <?php if($this->uri->segment(1)=="home" || $this->uri->segment(1)==""):?>
+			<li <?php if($this->uri->segment(1)=="home"):?>
 				class="active"<?php endif;?> ><a href="<?php echo base_url('home')?>">
 					<em class="fa fa-home">&nbsp;</em> Página inicial</a></li>
 			<li><a href="widgets.html"><em class="fa fa-users">&nbsp;</em> Clientes</a></li>
