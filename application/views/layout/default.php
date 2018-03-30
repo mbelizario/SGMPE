@@ -26,6 +26,7 @@
 <script src="<?php echo base_url('public/js/plugins/dtconfig.js')?>"></script>
 <script src="<?php echo base_url('public/js/plugins/datatables.min.js')?>"></script>
 <script src="<?php echo base_url('public/js/plugins/dataTables.responsive.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/jquery.mask.js')?>"></script>
 <script src="<?php echo base_url('public/js/chart.min.js')?>"></script>
 <script src="<?php echo base_url('public/js/chart-data.js')?>"></script>
 <script src="<?php echo base_url('public/js/easypiechart.js')?>"></script>
@@ -65,10 +66,11 @@
 
 		<ul class="nav menu">
 			<li <?php if($this->uri->segment(1)=="home"):?>
-				class="active"<?php endif;?> ><a href="<?php echo base_url('home')?>">
+				class="active"<?php endif;?> ><a href=" <?php echo base_url('home')?>">
 					<em class="fa fa-home">&nbsp;</em> Página inicial</a></li>
 			<li><a href="widgets.html"><em class="fa fa-users">&nbsp;</em> Clientes</a></li>
-      <li><a href="widgets.html"><em class="fa fa-truck">&nbsp;</em> Fornecedores</a></li>
+      <li <?php if($this->uri->segment(1)=="suppliers"):?>
+				class="active"<?php endif;?>><a href="<?php echo base_url('suppliers')?>"><em class="fa fa-truck">&nbsp;</em> Fornecedores</a></li>
       <li><a href="widgets.html"><em class="fa fa-tags">&nbsp;</em> Produtos</a></li>
       <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
         <em class="fa fa-usd">&nbsp;</em> Contas <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
