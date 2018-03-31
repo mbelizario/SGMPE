@@ -20,3 +20,11 @@
   padding: 16px;
   /*color: black;*/
 }
+
+.pages-toolbar li button
+{
+  display:inline-block;
+  text-decoration: none;
+  padding: 16px;
+  /*color: black;*/
+}

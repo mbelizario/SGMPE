@@ -57,7 +57,8 @@
 				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Usuário</div>
+				<div class="profile-usertitle-name">
+                    <?if($this->session->userdata('username')) echo $this->session->userdata('username')?></div>
 				<!-- <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div> -->
 			</div>
 			<div class="clear"></div>
@@ -68,7 +69,8 @@
 			<li <?php if($this->uri->segment(1)=="home"):?>
 				class="active"<?php endif;?> ><a href=" <?php echo base_url('home')?>">
 					<em class="fa fa-home">&nbsp;</em> Página inicial</a></li>
-			<li><a href="widgets.html"><em class="fa fa-users">&nbsp;</em> Clientes</a></li>
+			<li<?php if($this->uri->segment(1)=="customers"):?>
+                class="active"<?php endif;?>><a href="<?php echo base_url('customers')?>"><em class="fa fa-users">&nbsp;</em> Clientes</a></li>
       <li <?php if($this->uri->segment(1)=="suppliers"):?>
 				class="active"<?php endif;?>><a href="<?php echo base_url('suppliers')?>"><em class="fa fa-truck">&nbsp;</em> Fornecedores</a></li>
       <li><a href="widgets.html"><em class="fa fa-tags">&nbsp;</em> Produtos</a></li>

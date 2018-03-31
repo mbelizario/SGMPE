@@ -1,4 +1,14 @@
+//desabilitando os botoes de editar e remover
+$(document).ready(function(){
+    $('#edit-btn').prop("disabled", "disabled");
+    $('#rmv-btn').prop('disabled', 'disabled');
 
+});
+//habilita os botoes editar e remover, assim que seleciona alguma linha
+$('.table-list tbody tr').on('click', function(){
+    $('#edit-btn').prop("disabled", false);
+    $('#rmv-btn').prop('disabled', false);
+});
 $('#edit-btn').on('click', function(){
   var userId = $('input[name=userId]:checked').val();
   var base_url = $('#base_url').val();

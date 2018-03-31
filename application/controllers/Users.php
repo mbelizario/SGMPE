@@ -78,14 +78,11 @@ class Users extends CI_Controller {
 			}//try
 			catch(Exception $e)
 			{
-				// if($e->getCode()==1)
-				// {
 					$data['response'] = false;
 					$data['msg'] = $e->getMessage();
 					$data['code'] = $e->getCode();
 					echo json_encode($data);
 					exit();
-				// }
 			}
 			$this->load->view('pages/user/add' );
 		}else // se não estiver logado
@@ -169,7 +166,7 @@ class Users extends CI_Controller {
 
 	public function delete()
 	{
-		if($this->session->userdata(isUser))
+		if($this->session->userdata('isUser'))
 		{
 			$this->load->model('User');
 			$user = new User();
@@ -184,7 +181,6 @@ class Users extends CI_Controller {
 			}
 			catch(Exception $e)
 			{
-				$user->delete();
 				$data['response'] = false;
 				$data['msg'] = "Erro ao remover usuário!";
 				echo json_encode($data);

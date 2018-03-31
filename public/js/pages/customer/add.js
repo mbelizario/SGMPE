@@ -1,13 +1,13 @@
 $(document).ready(function(){
-   // $('#cnpj').mask('999.999.999-24');
+   $('#cpf').mask('999.999.999-99');
    $('#addressZipCode').mask('99.999-999');
    $('#phone').mask("(99) 9999-9999");
    $('#cellPhone').mask("(99) 99999-9999");
 });
 
 $('#add-btn').on('click', function(){
-    var companyName         = $('#companyName').val();
-    var cnpj                = $('#cnpj').val();
+    var personName          = $('#personName').val();
+    var cpf                 = $('#cpf').val();
     var addressZipCode      = $('#addressZipCode').val();
     var addressStreet       = $('#addressStreet').val();
     var addressNumber       = $('#addressNumber').val();
@@ -17,13 +17,13 @@ $('#add-btn').on('click', function(){
     var addressState        = $('#addressState').val();
     var email               = $('#email').val();
     var phone               = $('#phone').val();
-    var cellPhone            = $('#cellPhone').val();
+    var cellPhone           = $('#cellPhone').val();
 
     var base_url    = $('#base_url').val();
 
     var dataString = {
-        companyName         : companyName,
-        cnpj                : cnpj,
+        personName          : personName,
+        cpf                 : cpf,
         addressZipCode      : addressZipCode,
         addressStreet       : addressStreet,
         addressNumber       : addressNumber,
@@ -39,7 +39,7 @@ $('#add-btn').on('click', function(){
 
     $.ajax({
         type: "POST",
-        url: base_url+'suppliers/add',
+        url: base_url+'customers/add',
         data: dataString,
         success: function(response)
         {
@@ -53,7 +53,7 @@ $('#add-btn').on('click', function(){
             {
                 $.notify(obj.msg, "success");
                 setTimeout(function(){
-                    window.location.replace(base_url+'suppliers');
+                    window.location.replace(base_url+'customers');
                 }, 1000)
             }
             else
@@ -63,11 +63,11 @@ $('#add-btn').on('click', function(){
                 switch (obj.code)
                 {
                     case 1:
-                        $('#form-companyName').addClass('has-error');
+                        $('#form-personName').addClass('has-error');
                         break;
                     case 2:
                     case 3:
-                        $('#form-cnpj').addClass('has-error');
+                        $('#form-cpf').addClass('has-error');
                         break;
                     case 4:
                     case 5:
@@ -102,7 +102,7 @@ $('#add-btn').on('click', function(){
         },
         error: function(response)
         {
-            $.notify("Falha ao enviar os dados! Código do erro: #supplier001", "error");
+            $.notify("Falha ao enviar os dados! Código do erro: #customer001", "error");
         }
     })
 });
