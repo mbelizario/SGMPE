@@ -73,7 +73,20 @@
                 class="active"<?php endif;?>><a href="<?php echo base_url('customers')?>"><em class="fa fa-users">&nbsp;</em> Clientes</a></li>
       <li <?php if($this->uri->segment(1)=="suppliers"):?>
 				class="active"<?php endif;?>><a href="<?php echo base_url('suppliers')?>"><em class="fa fa-truck">&nbsp;</em> Fornecedores</a></li>
-      <li><a href="widgets.html"><em class="fa fa-tags">&nbsp;</em> Produtos</a></li>
+    <li class="parent "><a data-toggle="collapse" href="#sub-item-2">
+            <em class="fa fa-usd">&nbsp;</em> Estoque <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+        </a>
+        <ul class="children collapse" id="sub-item-2">
+            <li><a <?php if($this->uri->segment(1)=="products"):?>
+                    class="active"<?php endif;?> href="<?php echo base_url('products')?>">
+                    <span class="fa fa-arrow-right">&nbsp;</span> Produtos
+                </a></li>
+            <li ><a <?php if($this->uri->segment(1)=="productCategories"):?>
+                    class="active"<?php endif;?> href="<?php echo base_url('productCategories')?>">
+                    <span class="fa fa-arrow-right">&nbsp;</span> Categoria de produtos
+                </a></li>
+        </ul>
+    </li>
       <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
         <em class="fa fa-usd">&nbsp;</em> Contas <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
         </a>

@@ -18,9 +18,9 @@ $(document).ready(function(){
           "sPrevious": "Anterior",
           "sFirst": "Primeiro",
           "sLast": "Último"
-      },
+      }
     },
     "ordering": false,
     "responsive": true
   });
-})
+});

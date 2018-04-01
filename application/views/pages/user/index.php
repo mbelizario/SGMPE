@@ -19,8 +19,8 @@
       <div class="pages-toolbar">
         <ul>
           <li> <a href="<?php echo base_url('users/add')?>" class="btn btn-info"> <i class="fa fa-plus">Adicionar</i></a> </li>
-          <li> <a type="button" id="edit-btn" class="btn btn-warning"> <i class="fa fa-pencil-square-o">Editar</i> </a> </li>
-          <li> <a type="button" id="rmv-btn" class="btn btn-danger"><i class="fa fa-times">Excluir</i></a> </li>
+          <li> <button type="button" id="edit-btn" class="btn btn-warning"> <i class="fa fa-pencil-square-o">Editar</i> </button> </li>
+          <li> <button type="button" id="rmv-btn" class="btn btn-danger"><i class="fa fa-times">Excluir</i></button> </li>
         </ul>
       </div>
     </div>

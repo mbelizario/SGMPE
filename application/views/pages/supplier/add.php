@@ -3,7 +3,7 @@
     <li><a href="<?php echo base_url();?>">
       <em class="fa fa-home"></em>
     </a></li>
-    <li><a href="<?php echo base_url('users')?>">Fornecedores</a></li>
+    <li><a href="<?php echo base_url('suppliers')?>">Fornecedores</a></li>
     <li class="active">Adicionar Fornecedor</li>
   </ol>
 </div><!--/.row-->
