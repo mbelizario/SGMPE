@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   // $('#cnpj').mask('999.999.999-24');
+   $('#cnpj').mask('99.999.999/9999-99');
    $('#addressZipCode').mask('99.999-999');
    $('#phone').mask("(99) 9999-9999");
    $('#cellPhone').mask("(99) 99999-9999");

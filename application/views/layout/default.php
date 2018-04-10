@@ -74,7 +74,7 @@
       <li <?php if($this->uri->segment(1)=="suppliers"):?>
 				class="active"<?php endif;?>><a href="<?php echo base_url('suppliers')?>"><em class="fa fa-truck">&nbsp;</em> Fornecedores</a></li>
     <li class="parent "><a data-toggle="collapse" href="#sub-item-2">
-            <em class="fa fa-usd">&nbsp;</em> Estoque <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+            <em class="fa fa-cart-plus">&nbsp;</em> Estoque <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
         </a>
         <ul class="children collapse" id="sub-item-2">
             <li><a <?php if($this->uri->segment(1)=="products"):?>
@@ -91,10 +91,12 @@
         <em class="fa fa-usd">&nbsp;</em> Contas <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
         </a>
         <ul class="children collapse" id="sub-item-1">
-          <li><a class="" href="#">
+          <li><a <?php if($this->uri->segment(1)=="billsToPay"):?>
+                  class="active"<?php endif;?> href="<?php echo base_url('billsToPay')?>">
             <span class="fa fa-arrow-right">&nbsp;</span> A pagar
           </a></li>
-          <li><a class="" href="#">
+          <li><a <?php if($this->uri->segment(1)=="billsToReceive"):?>
+                  class="active"<?php endif;?> href="<?php echo base_url('billsToPay')?>">
             <span class="fa fa-arrow-right">&nbsp;</span> A receber
           </a></li>
         </ul>
