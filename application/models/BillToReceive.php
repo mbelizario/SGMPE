@@ -1,86 +1,85 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class BillToPay extends CI_Model
+class BillToReceive extends CI_Model
 {
     public function __construct()
     {
         $this->id                           = null;
-        $this->supplier_id                  = null;
+        $this->customer_id                  = null;
         $this->document_number              = null;
         $this->complementary_information    = null;
         $this->issue_date                   = null; //data de emissão
         $this->due_date                     = null; //data de vencimento
         $this->amount                       = null;
-        $this->paid_amount                  = null;
-        $this->pay_day                      = null;
-        $this->bill_to_pay_type_id          = null;
+        $this->received_amount              = null;
+        $this->receipt_day                  = null;
+//        $this->bill_to_pay_type_id          = null;
         $this->load->database();
     }
-    //Busca todas as contas a pagar cadastradas
+    //Busca todas as contas a receber cadastradas
     function getAll()
     {
-//        return $this->db->get('bills_to_pay')->result();
+
         return $this->db->query("SELECT  *, to_char(issue_date, 'DD/MM/YYYY') as issue_date, 
-        to_char(due_date, 'DD/MM/YYYY') as due_date, to_char(pay_day, 'DD/MM/YYYY') as pay_day
-         FROM bills_to_pay")->result();
+        to_char(due_date, 'DD/MM/YYYY') as due_date, to_char(receipt_day, 'DD/MM/YYYY') as receipt_day
+         FROM bills_to_receive")->result();
     }
-    //Busca uma conta a pagar específica, com base em seu id
+    //Busca uma conta a receber específica, com base em seu id
     function getOne()
     {
-//        $this->db->where('id', $this->id);
-//        return $this->db->get('bills_to_pay')->result();
+
         return $this->db->query("SELECT  *, to_char(issue_date, 'DD/MM/YYYY') as issue_date, 
-        to_char(due_date, 'DD/MM/YYYY') as due_date, to_char(pay_day, 'DD/MM/YYYY') as pay_day
-         FROM bills_to_pay WHERE id = ".$this->id)->result();
+        to_char(due_date, 'DD/MM/YYYY') as due_date, to_char(receipt_day, 'DD/MM/YYYY') as receipt_day
+         FROM bills_to_receive WHERE id = ".$this->id)->result();
     }
 
-    //retorna os tipos de contas a pagar
+    //retorna os tipos de contas a receber
     function getTypes()
     {
         return $this->db->get('bill_to_pay_types')->result();
     }
 
-    //cadastra uma nova conta a pagar
+    //cadastra uma nova conta a receber
     function add()
     {
         $data = array(
-            'supplier_id' => $this->supplier_id,
+            'customer_id' => $this->customer_id,
             'document_number' => $this->document_number,
             'complementary_information' => $this->complementary_information,
             'issue_date' => $this->issue_date,
             'due_date' => $this->due_date,
             'amount' => $this->amount,
-            'paid_amount' => $this->amount,
-            'pay_day' => $this->pay_day ? $this->pay_day : null,
-            'bill_to_pay_type_id' => $this->bill_to_pay_type_id
+            'received_amount' => $this->received_amount,
+            'receipt_day' => $this->receipt_day ? $this->receipt_day  : null
         );
-        $this->db->insert('bills_to_pay', $data);
+        $this->db->insert('bills_to_receive', $data);
+
         return true;
     }
     //atualiza as informalções de uma conta já existente
     function update()
     {
         $data = array(
-            'supplier_id' => $this->supplier_id,
+            'customer_id' => $this->customer_id,
             'document_number' => $this->document_number,
             'complementary_information' => $this->complementary_information,
             'issue_date' => $this->issue_date,
             'due_date' => $this->due_date,
             'amount' => $this->amount,
-            'paid_amount' => $this->paid_amount,
-            'pay_day' => $this->pay_day ? $this->pay_day : null,
-            'bill_to_pay_type_id' => $this->bill_to_pay_type_id
+            'received_amount' => $this->received_amount,
+            'receipt_day' => $this->receipt_day ? $this->receipt_day  : null,
+//            'bill_to_pay_type_id' => $this->bill_to_pay_type_id
         );
         $this->db->where('id', $this->id);
-        $this->db->update('bills_to_pay', $data);
+        $this->db->update('bills_to_receive', $data);
         return true;
     }
-    //apaga uma conta a pagar
+    //apaga uma conta a receber
     function delete()
     {
         $this->db->where('id', $this->id);
-        $this->db->delete('bills_to_pay');
+        $this->db->delete('bills_to_receive');
         return true;
     }
 

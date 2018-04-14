@@ -96,7 +96,7 @@
             <span class="fa fa-arrow-right">&nbsp;</span> A pagar
           </a></li>
           <li><a <?php if($this->uri->segment(1)=="billsToReceive"):?>
-                  class="active"<?php endif;?> href="<?php echo base_url('billsToPay')?>">
+                  class="active"<?php endif;?> href="<?php echo base_url('billsToReceive')?>">
             <span class="fa fa-arrow-right">&nbsp;</span> A receber
           </a></li>
         </ul>
