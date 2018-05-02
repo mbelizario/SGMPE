@@ -32,7 +32,7 @@ type="hidden" value="">
     <form role="form">
         <div class="row">
           <!-- NAME -->
-          <div class="col-lg-6 col-md-12">
+          <div class="col-lg-4 col-md-12">
             <div class="form-group" id="form-firstname">
               <label>Nome:</label>
               <input id="firstname" name="firstname"class="form-control"
@@ -40,12 +40,22 @@ type="hidden" value="">
             </div>
           </div> <!--col-->
           <!-- LASTNAME -->
-          <div class="col-lg-6 col-md-12">
+          <div class="col-lg-4 col-md-12">
             <div class="form-group" id="form-lastname">
               <label>Sobrenome:</label>
               <input id="lastname" name='lastname' class="form-control" placeholder="Sobrenome">
             </div>
           </div><!--col-->
+          <div class="col-lg-4 col-md-12">
+                <div class="form-group" id="form-userType">
+                    <label>Tipo de usuário:</label>
+                    <select id="userType" name='userType' class="form-control">
+                        <option disabled selected>Selecione o tipo</option>
+                        <option value="1">Gerente</option>
+                        <option value="2">Caixa</option>
+                    </select>
+                </div>
+            </div><!--col-->
         </div><!--row-->
         <div class="row">
           <div class="col-lg-6 col-md-12">

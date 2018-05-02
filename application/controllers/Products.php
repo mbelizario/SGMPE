@@ -17,7 +17,7 @@ class Products extends CI_Controller {
     /**************************************************/
     public function index()
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('Product');
             $product = new Product();
@@ -32,7 +32,7 @@ class Products extends CI_Controller {
 
     public function add()
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             if($this->input->post())
             {
@@ -97,7 +97,7 @@ class Products extends CI_Controller {
 
     public function edit($lang = null)
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             if($this->input->post())
             {
@@ -179,7 +179,7 @@ class Products extends CI_Controller {
 
     public function delete()
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('Product');
             try

@@ -5,11 +5,13 @@ $('#add-btn').on('click', function(){
   var email       = $('#email').val();
   var pass        = $('#pass').val();
   var confirmPass = $('#confirmPass').val();
+  var userType    = $('#userType').val();
   var base_url    = $('#base_url').val();
 
   var dataString = {
     firstname   : firstname,
     lastname    : lastname,
+    userType    : userType,
     username    : username,
     email       : email,
     pass        : pass,
@@ -47,20 +49,23 @@ $('#add-btn').on('click', function(){
             $('#form-lastname').addClass('has-error');
             break;
           case 3:
+            $('#form-userType').addClass('has-error');
+            break;
           case 4:
+          case 5:
             $('#form-username').addClass('has-error');
             break;
-          case 5:
           case 6:
+          case 7:
             $('#form-email').addClass('has-error');
             break;
-          case 7:
+          case 8:
             $('#form-pass').addClass('has-error');
             break;
-          case 8:
+          case 9:
             $('#form-confirmPass').addClass('has-error');
             break;
-          case 9:
+          case 10:
             $('#form-pass').addClass('has-error');
             $('#form-confirmPass').addClass('has-error');
             break;
@@ -74,4 +79,4 @@ $('#add-btn').on('click', function(){
       $.notify("Falha ao enviar os dados! Código do erro: #user001", "error");
     }
   })
-})
+});

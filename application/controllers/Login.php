@@ -27,10 +27,15 @@ class Login extends CI_Controller {
          $user = new User();
          $user->username = $this->input->post('username');
          $user->pass = $this->input->post('pass');
+
+
          if($user->authenticate())
          {
-           $this->session->set_userdata('isUser', true);
-           $this->session->set_userData('username', $user->username);
+            $result = $user->getOneByUsernameAndPassword();
+            $this->session->set_userdata('isUser', true);
+            $this->session->set_userData('username', $user->username);
+            $this->session->set_userData('firstname', $result[0]->firstname);
+             $this->session->set_userData('user_type', $result[0]->user_type_id);
            $data['response'] = true;
            echo json_encode($data);
            exit();

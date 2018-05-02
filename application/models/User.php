@@ -12,7 +12,7 @@ class User extends CI_Model {
     $this->username = NULL;
     $this->pass = NULL;
     $this->confirmPass = NULL;
-    $this->accessLevel = NULL;
+    $this->user_type_id = NULL;
     $this->load->database();
   }
   //************************************************
@@ -28,7 +28,7 @@ class User extends CI_Model {
   //***********************************************************************
   function getOne()
   {
-    $this->db->select('firstname, lastname, email, username');
+    $this->db->select('firstname, lastname, email, username, user_type_id');
     $this->db->where('id', $this->id);
     return $this->db->get('users')->result();
   }
@@ -44,7 +44,7 @@ class User extends CI_Model {
         'email' => $this->email,
         'username' => $this->username,
         'pass' => crypt($this->pass, $key),
-        'accesslevel' => $this->accessLevel
+        'user_type_id' => $this->user_type_id
     );
     $this->db->insert('users', $data);
     return true;
@@ -57,6 +57,7 @@ class User extends CI_Model {
     $data = array(
         'firstname' => $this->firstname,
         'lastname' => $this->lastname,
+        'user_type_id' => $this->user_type_id,
         'email' => $this->email,
         'username' => $this->username,
     );
@@ -106,6 +107,14 @@ class User extends CI_Model {
        return true;
      else // não autenticou
        return false;
+  }
+
+  function getOneByUsernameAndPassword()
+  {
+      $key = '$2a$07$usesomadasdsadsadsadasdasdasdsadesillystringfors';
+      $pass_encryp = crypt($this->pass, $key);
+     return  $this->db->query("SELECT * FROM users WHERE
+     username = '$this->username' AND pass = '$pass_encryp'")->result();
   }
 
 

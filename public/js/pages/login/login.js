@@ -5,7 +5,7 @@ $('#login').on('click', function(){
   var dataString = {
     username  : username,
     pass      : pass
-  }
+  };
   $.ajax({
     type: "POST",
     url: base_url+'login/isUser',
@@ -27,4 +27,4 @@ $('#login').on('click', function(){
       $.notify("Falha ao enviar os dados! Código do erro: #user001", "error");
     }
   })
-})
+});

@@ -121,4 +121,3 @@
 <script src="<?php echo base_url('public/js/plugins/jquery.maskMoney.js')?>"></script>
 <script src="<?php echo base_url('public/js/pages/bill_to_pay/add.js')?>"></script>
 
-<?php

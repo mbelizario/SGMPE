@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //lista todas as contas a pagar
     function index()
     {
-        if ($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('BillToReceive');
             $bills = new BillToReceive();
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //adiciona uma nova conta a pagar
     function add()
     {
-        if ($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('BillToReceive');
             $this->load->model('Customer');
@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     //pode ser null em caso de posts
     function edit($lang = null)
     {
-        if ($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('BillToReceive');
             $this->load->model('Customer');
@@ -177,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     function delete()
     {
-        if ($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             try
             {

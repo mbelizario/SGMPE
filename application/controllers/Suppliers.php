@@ -17,7 +17,7 @@ class Suppliers extends CI_Controller {
    /**************************************************/
    public function index()
    {
-       if($this->session->userdata('isUser'))//se estiver logado
+       if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
        {
            $this->load->model('Supplier');
            $supplier = new Supplier();
@@ -36,7 +36,7 @@ class Suppliers extends CI_Controller {
    /**************************************************/
    public function add()
    {
-       if($this->session->userdata('isUser')){
+       if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1){
            try
            {
                $this->load->model('Supplier');
@@ -127,7 +127,7 @@ class Suppliers extends CI_Controller {
     /**************************************************/
    public function edit($lang = null)
    {
-       if($this->session->userdata('isUser'))//se estiver logado
+       if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
        {
            $this->load->model('Supplier');
            $this->load->helper('unmask');
@@ -239,7 +239,7 @@ class Suppliers extends CI_Controller {
    public function delete()
    {
        $this->load->model('Supplier');
-       if($this->session->userdata('isUser'))
+       if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
        {
            try
            {

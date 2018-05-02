@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 	 //Lista todos os usuarios
 	public function index()
 	{
-		if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
 		{
 			$this->load->model('User');
 
@@ -31,7 +31,7 @@ class Users extends CI_Controller {
 
 	public function add()
 	{
-		if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
 		{
 			try
 			{
@@ -45,29 +45,32 @@ class Users extends CI_Controller {
 					$user->firstname 				= $this->input->post('firstname');
 					$user->lastname 				= $this->input->post('lastname');
 					$user->username 				= $this->input->post('username');
-					$user->email 						= $this->input->post('email');
-					$user->pass 						= $this->input->post('pass');
-					$user->confirmPass 			= $this->input->post('confirmPass');
+					$user->email 				    = $this->input->post('email');
+					$user->pass 					= $this->input->post('pass');
+					$user->confirmPass 			    = $this->input->post('confirmPass');
+                    $user->user_type_id 			= $this->input->post('userType');
 					$regex = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 					//lançamento das exceções
 					if(!$user->firstname)
 						throw new Exception("Por favor preencha o nome!",1);
 					else if(!$user->lastname)
 						throw new Exception("Por favor preencha o sobrenome!",2);
+                    else if(!$user->user_type_id)
+                        throw new Exception("Por favor selecione o tipo de usuário!",3);
 					else if(!$user->username)
-						throw new Exception("Por favor preencha o nome de usuário!",3);
+						throw new Exception("Por favor preencha o nome de usuário!",4);
 					else if(!$user->usernameIsUnique())
-						throw new Exception("Nome de usuário já em uso!",4);
+						throw new Exception("Nome de usuário já em uso!",5);
 					else if(!$user->email)
-						throw new Exception("Por favor preencha o e-mail!",5);
+						throw new Exception("Por favor preencha o e-mail!",6);
 					else if(!preg_match($regex, $user->email))
-						throw new Exception("E-mail inválido, por favor corrija!",6);
+						throw new Exception("E-mail inválido, por favor corrija!",7);
 					else if(!$user->pass)
-						throw new Exception("Por favor preencha a senha!",7);
+						throw new Exception("Por favor preencha a senha!",8);
 					else if(!$user->confirmPass)
-						throw new Exception("Por favor preencha a confirmação de senha!",8);
+						throw new Exception("Por favor preencha a confirmação de senha!",9);
 					else if($user->pass != $user->confirmPass)
-						throw new Exception("'Senha' e 'Confirmar senha' diferentes, por favor corrija!",9);
+						throw new Exception("'Senha' e 'Confirmar senha' diferentes, por favor corrija!",10);
 					//caso nao caia em nenhuma exceção, salva o usuario e retorna true;
 					$user->add();
 					$data['response'] = true;
@@ -94,7 +97,7 @@ class Users extends CI_Controller {
 
 	public function edit($lang = null)
 	{
-		if($this->session->userdata('isUser'))
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
 		{
 			try
 			{
@@ -109,20 +112,23 @@ class Users extends CI_Controller {
 					$user->lastname 				= $this->input->post('lastname');
 					$user->username 				= $this->input->post('username');
 					$user->email 						= $this->input->post('email');
+                    $user->user_type_id 			= $this->input->post('userType');
 					$regex = '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 					//lançamento das exceções
 					if(!$user->firstname)
 						throw new Exception("Por favor preencha o nome!",1);
 					else if(!$user->lastname)
 						throw new Exception("Por favor preencha o sobrenome!",2);
+                    else if(!$user->user_type_id)
+                        throw new Exception("Por favor selecione o tipo de usuário!",3);
 					else if(!$user->username)
-						throw new Exception("Por favor preencha o nome de usuário!",3);
+						throw new Exception("Por favor preencha o nome de usuário!",4);
 					else if(!$user->usernameIsUnique())
-						throw new Exception("Nome de usuário já em uso!",4);
+						throw new Exception("Nome de usuário já em uso!",5);
 					else if(!$user->email)
-						throw new Exception("Por favor preencha o e-mail!",5);
+						throw new Exception("Por favor preencha o e-mail!",6);
 					else if(!preg_match($regex, $user->email))
-						throw new Exception("E-mail inválido, por favor corrija!",6);
+						throw new Exception("E-mail inválido, por favor corrija!",7);
 					// caso nao caia em nenhuma exceção, salva o usuario e retorna true;
 					$user->update();
 					$data['response'] = true;
@@ -153,6 +159,7 @@ class Users extends CI_Controller {
 				$result_to_display['id'] = $lang;
 				$result_to_display['firstname'] = $r->firstname;
 				$result_to_display['lastname'] = $r->lastname;
+                $result_to_display['user_type_id'] = $r->user_type_id;
 				$result_to_display['email'] = $r->email;
 				$result_to_display['username'] = $r->username;
 			}
@@ -166,38 +173,38 @@ class Users extends CI_Controller {
 
 	public function delete()
 	{
-		if($this->session->userdata('isUser'))
-		{
-			$this->load->model('User');
-			$user = new User();
-			$user->id = $this->input->post('id');
-			try
-			{
-				$user->delete();
-				$data['response'] = true;
-				$data['msg'] = "Usuário removido com sucesso!";
-				echo json_encode($data);
-				exit();
-			}
-			catch(Exception $e)
-			{
-				$data['response'] = false;
-				$data['msg'] = "Erro ao remover usuário!";
-				echo json_encode($data);
-				exit();
-			}
-		}
-		else
-		{
-			redirect(base_url('login'));
-		}
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
+        {
+            $this->load->model('User');
+            $user = new User();
+            $user->id = $this->input->post('id');
+            try
+            {
+                $user->delete();
+                $data['response'] = true;
+                $data['msg'] = "Usuário removido com sucesso!";
+                echo json_encode($data);
+                exit();
+            }
+            catch(Exception $e)
+            {
+                $data['response'] = false;
+                $data['msg'] = "Erro ao remover usuário!";
+                echo json_encode($data);
+                exit();
+            }
+        }
+        else
+        {
+            redirect(base_url('login'));
+        }
 
-	}
+    }
 	// verifica se o username digitado é unico (está disponivel) ou não.
 	// retorna true caso esteja disponivel, e false caso não esteja
 	public function checkUsername()
 	{
-		if($this->session->userdata('isUser'))
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
 		{
 			$this->load->model('User');
 			// error_log(print_r($this->input->post(),true));

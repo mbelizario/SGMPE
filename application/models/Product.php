@@ -15,16 +15,23 @@ class Product extends CI_Model
         $this->product_category_id = NULL;
         $this->load->database();
     }
-
+//    Traz todos os produtos cadastrados
     function getAll()
     {
         return $this->db->get('products')->result();
     }
-
+//    Pega um produto específico com base em seu ID
     function getOne()
     {
         $this->db->where('id', $this->id);
         return $this->db->get('products')->result();
+    }
+//    pega um produto especifico com base em seu codigo interno
+    function getOneByInternalCode()
+    {
+        return $this->db->query("select id, internal_code, name, cost::money::numeric::float8, 
+        price::money::numeric::float8,
+        profit::money::numeric::float8 FROM products WHERE internal_code like '$this->internal_code'")->result();
     }
 
     function add()

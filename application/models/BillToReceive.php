@@ -3,18 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class BillToReceive extends CI_Model
 {
-    public function __construct()
+    public function __construct($id = null, $customer_id = null, $document_numer = null,
+                                $complementary_information = null, $issue_date = null, $due_date = null,
+                                $amount = null, $received_amount = null, $receipt_day = null, $payment_type_id = null)
     {
-        $this->id                           = null;
-        $this->customer_id                  = null;
-        $this->document_number              = null;
-        $this->complementary_information    = null;
-        $this->issue_date                   = null; //data de emissão
-        $this->due_date                     = null; //data de vencimento
-        $this->amount                       = null;
-        $this->received_amount              = null;
-        $this->receipt_day                  = null;
-//        $this->bill_to_pay_type_id          = null;
+        $this->id                           = $id;
+        $this->customer_id                  = $customer_id;
+        $this->document_number              = $document_numer;
+        $this->complementary_information    = $complementary_information;
+        $this->issue_date                   = $issue_date; //data de emissão
+        $this->due_date                     = $due_date; //data de vencimento
+        $this->amount                       = $amount;
+        $this->received_amount              = $received_amount;
+        $this->receipt_day                  = $receipt_day;
+        $this->payment_type_id              = $payment_type_id;
         $this->load->database();
     }
     //Busca todas as contas a receber cadastradas
@@ -43,6 +45,7 @@ class BillToReceive extends CI_Model
     //cadastra uma nova conta a receber
     function add()
     {
+
         $data = array(
             'customer_id' => $this->customer_id,
             'document_number' => $this->document_number,
@@ -51,11 +54,12 @@ class BillToReceive extends CI_Model
             'due_date' => $this->due_date,
             'amount' => $this->amount,
             'received_amount' => $this->received_amount,
-            'receipt_day' => $this->receipt_day ? $this->receipt_day  : null
+            'receipt_day' => $this->receipt_day ? $this->receipt_day  : null,
+            'payment_type_id' => $this->payment_type_id
         );
-        $this->db->insert('bills_to_receive', $data);
+         $this->db->insert('bills_to_receive', $data);
+        return $this->db->insert_id();
 
-        return true;
     }
     //atualiza as informalções de uma conta já existente
     function update()
@@ -81,6 +85,35 @@ class BillToReceive extends CI_Model
         $this->db->where('id', $this->id);
         $this->db->delete('bills_to_receive');
         return true;
+    }
+
+    function sumBillsToReceivePerMonth($year)
+    {
+        $result['jan'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-01-01'::DATE AND receipt_day <= '$year-01-31'::DATE")->result();
+        $result['feb'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-02-01'::DATE AND receipt_day <= '$year-02-28'::DATE")->result();
+        $result['mar'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-03-01'::DATE AND receipt_day <= '$year-03-31'::DATE")->result();
+        $result['apr'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-04-01'::DATE AND receipt_day <= '$year-04-30'::DATE ")->result();
+        $result['may'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-05-01'::DATE AND receipt_day <= '$year-05-31'::DATE")->result();
+        $result['jun'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-06-01'::DATE AND receipt_day <= '$year-06-30'::DATE")->result();
+        $result['jul'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-07-01'::DATE AND receipt_day <= '$year-07-31'::DATE")->result();
+        $result['aug'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-08-01'::DATE AND receipt_day <= '$year-08-31'::DATE")->result();
+        $result['sep'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-09-01'::DATE AND receipt_day <= '$year-09-30'::DATE")->result();
+        $result['oct'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-10-01'::DATE AND receipt_day <= '$year-10-31'::DATE")->result();
+        $result['nov'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-11-01'::DATE AND receipt_day <= '$year-11-30'::DATE")->result();
+        $result['dec'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
+        WHERE receipt_day >= '$year-12-01'::DATE AND receipt_day <= '$year-12-31'::DATE")->result();
+        return $result;
     }
 
 }

@@ -4,12 +4,14 @@ $('#edit-btn').on('click', function(){
   var lastname    = $('#lastname').val();
   var username    = $('#username').val();
   var email       = $('#email').val();
+  var userType    = $('#userType').val();
   var base_url    = $('#base_url').val();
 
   var dataString = {
     id          : id,
     firstname   : firstname,
     lastname    : lastname,
+    userType    : userType,
     username    : username,
     email       : email,
   };
@@ -46,11 +48,14 @@ $('#edit-btn').on('click', function(){
             $('#form-lastname').addClass('has-error');
             break;
           case 3:
+            $('#form-userType').addClass('has-error');
+            break;
           case 4:
+          case 5:
             $('#form-username').addClass('has-error');
             break;
-          case 5:
           case 6:
+          case 7:
             $('#form-email').addClass('has-error');
             break;
           default:

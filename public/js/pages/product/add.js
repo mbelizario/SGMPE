@@ -11,7 +11,6 @@ $(document).ready(function()
         var cost = $("#cost").maskMoney('unmasked')[0];
         var price = $("#price").maskMoney('unmasked')[0];
         var profit = price - cost;
-        console.log('cost: '+cost+ ' price: '+price+' total: '+profit);
         $('#profit').val(profit);
 
     });
@@ -46,7 +45,6 @@ $('#add-btn').on('click', function(){
         category            : category
     };
 
-    console.log(dataString);
 
     $.ajax({
         type: "POST",

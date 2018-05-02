@@ -14,7 +14,17 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-
-		$this->load->view('pages/home/home');
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
+        {
+		    $this->load->view('pages/home/home');
+        }
+        elseif ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 2)
+        {
+            $this->load->view('pages/home/home');
+        }
+        else
+        {
+            redirect(base_url('login'));
+        }
 	}
 }

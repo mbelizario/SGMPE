@@ -17,7 +17,7 @@ class Customers extends CI_Controller {
     /**************************************************/
     public function index()
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('Customer');
             $customer = new Customer();
@@ -36,7 +36,7 @@ class Customers extends CI_Controller {
     /**************************************************/
     public function add()
     {
-        if($this->session->userdata('isUser')){
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1){
             try
             {
                 $this->load->model('Customer');
@@ -127,7 +127,7 @@ class Customers extends CI_Controller {
     /**************************************************/
     public function edit($lang = null)
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('Customer');
             $this->load->helper('unmask');
@@ -239,7 +239,7 @@ class Customers extends CI_Controller {
     public function delete()
     {
         $this->load->model('Customer');
-        if($this->session->userdata('isUser'))
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
         {
             try
             {

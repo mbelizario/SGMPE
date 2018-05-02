@@ -14,7 +14,7 @@ class ProductCategories extends CI_Controller {
 
     function index()
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             $this->load->model('ProductCategory');
             $categories = new ProductCategory();
@@ -29,7 +29,7 @@ class ProductCategories extends CI_Controller {
 
     function add()
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             if($this->input->post())//se receber um post
             {
@@ -75,7 +75,7 @@ class ProductCategories extends CI_Controller {
 
     function edit($lang = null)
     {
-        if($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
 
             if($this->input->post())//se receber um post
@@ -137,7 +137,7 @@ class ProductCategories extends CI_Controller {
 
     function delete()
     {
-        if ($this->session->userdata('isUser'))//se estiver logado
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
             try
             {
