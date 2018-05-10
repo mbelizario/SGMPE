@@ -48,9 +48,9 @@
             <div class='row'>
                 <div class="col-lg-4 col-md-12">
                     <div class="form-group" id="form-cost">
-                        <label>Custo *:</label>
+                        <label>Valor aquisição / custo produção *:</label>
                         <input id="cost" name='cost'
-                               class="form-control moneyValues" placeholder="Custo">
+                               class="form-control moneyValues" placeholder="Valor aquisição / custo produção">
                     </div>
                 </div><!--col-->
                 <div class="col-lg-4 col-md-12">

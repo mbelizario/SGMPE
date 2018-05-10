@@ -27,12 +27,13 @@ $(document).ready(function()
 $('#add-btn').on('click', function(){
     var internalCode        = $('#internalCode').val();
     var name        = $('#name').val();
-    var cost        = $('#cost').maskMoney('unmasked')[0];
-    var price       = $('#price').maskMoney('unmasked')[0];
+    var cost        = $('#cost').val();
+    var price       = $('#price').val();
     var profit      = $('#profit').val();
     var quantity    = $('#quantity').val();
     var category    = $('#category').val();
-
+    cost = cost.replace("R$:","");
+    price = price.replace("R$:","");
     var base_url    = $('#base_url').val();
 
     var dataString = {
