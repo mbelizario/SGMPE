@@ -20,16 +20,50 @@ class CashFlow extends CI_Controller
         {
             $this->load->model('BillToPay');
             $this->load->model('BillToReceive');
+            $this->load->model('CashFlow1');
             $billsToPay = new BillToPay();
             $billsToReceive = new BillToReceive();
+            $cashFlow = new CashFlow1();
             $result['billsToPayTypeFix'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,1);
             $result['billsToPayTypeVar'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,2);
             $result['billsToPay'] = $billsToPay->sumBillsToPayPerMonth(2018);
             $result['billsToReceive'] = $billsToReceive->sumBillsToReceivePerMonth(2018);
+            $result['cumulativeAvailability'] = $cashFlow->calculateCumulativeAvailability(2018);
+            $result['desiredValues'] = $cashFlow->getDesiredValues(2018);
+            $result['finalResult'] = $cashFlow->calculateFinalResult(2018);
+
             $this->load->view('pages/cash_flow/index', $result);
         } else//se não estiver logado
         {
             redirect(base_url('login'));
+        }
+    }
+
+    function addDesiredValue()
+    {
+        if($this->input->post())
+        {
+            try
+            {
+                $this->load->model('CashFlow1');
+                $month = $this->input->post('month');
+                $year = $this->input->post('year');
+                $value = $this->input->post('value');
+                $cashFlow = new CashFlow1();
+                $cashFlow->saveDesiredValue($month, $year, $value);
+                $data['response'] = true;
+                $data['msg'] = "Nível desejado salvo com sucesso!";
+                echo json_encode($data);
+                exit();
+            }
+            catch (Exception $e)
+            {
+                $data['response'] = false;
+                $data['msg'] = "Erro ao salvar nível desejado!";
+                echo json_encode($data);
+                exit();
+            }
+
         }
     }
 }
