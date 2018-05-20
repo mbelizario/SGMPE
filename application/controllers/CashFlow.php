@@ -13,8 +13,11 @@ class CashFlow extends CI_Controller
     public $layout = 'default';
     public $title = 'SGMPE - Fluxo de caixa';
 
-
-    function index()
+    /*sumBillsToPayTypesPerMonth aceita 3 parametros:
+    1- O ano em que deve ser feita a consulta
+    2- O tipo das contas a serem buscadas (1 = gastos fixos / 2 = gastos variaveis)
+    3- o tipo de fluxo de caixa em questão (1 = planejado / 2 = realizado)*/
+    function accomplished()
     {
         if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
         {
@@ -24,16 +27,42 @@ class CashFlow extends CI_Controller
             $billsToPay = new BillToPay();
             $billsToReceive = new BillToReceive();
             $cashFlow = new CashFlow1();
-            $result['billsToPayTypeFix'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,1);
-            $result['billsToPayTypeVar'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,2);
-            $result['billsToPay'] = $billsToPay->sumBillsToPayPerMonth(2018);
-            $result['billsToReceive'] = $billsToReceive->sumBillsToReceivePerMonth(2018);
-            $result['cumulativeAvailability'] = $cashFlow->calculateCumulativeAvailability(2018);
-            $result['desiredValues'] = $cashFlow->getDesiredValues(2018);
-            $result['finalResult'] = $cashFlow->calculateFinalResult(2018);
 
-            $this->load->view('pages/cash_flow/index', $result);
+            $result['billsToPayTypeFix'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,1,2);
+            $result['billsToPayTypeVar'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,2, 2);
+            $result['billsToPay'] = $billsToPay->sumBillsToPayPerMonth(2018, 2);
+            $result['billsToReceive'] = $billsToReceive->sumBillsToReceivePerMonth(2018, 2);
+            $result['cumulativeAvailability'] = $cashFlow->calculateCumulativeAvailability(2018, 2);
+            $result['desiredValues'] = $cashFlow->getDesiredValues(2018);
+            $result['finalResult'] = $cashFlow->calculateFinalResult(2018, 2);
+
+            $this->load->view('pages/cash_flow/accomplished', $result);
         } else//se não estiver logado
+        {
+            redirect(base_url('login'));
+        }
+    }
+
+    function planned()
+    {
+        if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)//se estiver logado
+        {
+            $this->load->model('BillToPay');
+            $this->load->model('BillToReceive');
+            $this->load->model('CashFlow1');
+            $billsToPay = new BillToPay();
+            $billsToReceive = new BillToReceive();
+            $cashFlow = new CashFlow1();
+
+            $result['billsToPayTypeFix'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,1,1);
+            $result['billsToPayTypeVar'] = $billsToPay->sumBillsToPayTypesPerMonth(2018,2, 1);
+            $result['billsToPay'] = $billsToPay->sumBillsToPayPerMonth(2018, 1);
+            $result['billsToReceive'] = $billsToReceive->sumBillsToReceivePerMonth(2018, 1);
+            $result['cumulativeAvailability'] = $cashFlow->calculateCumulativeAvailability(2018, 1);
+            $result['desiredValues'] = $cashFlow->getDesiredValues(2018);
+            $result['finalResult'] = $cashFlow->calculateFinalResult(2018, 1);
+            $this->load->view('pages/cash_flow/planned', $result);
+        }else//se não estiver logado
         {
             redirect(base_url('login'));
         }

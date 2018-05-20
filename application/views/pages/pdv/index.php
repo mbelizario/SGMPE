@@ -5,7 +5,7 @@
 <!--            <div class="panel-heading">
                 Total
             </div>-->
-            <div class="panel-body"   >
+            <div class="panel-body" >
                 <div class="form-group" id="form-totalPayable">
                     <label>Total a pagar:</label>
                     <input id="totalPayable" name='totalPayable'
@@ -24,8 +24,8 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="panel panel-default" >
+            <div class="panel-heading" style="background-color: lightgrey;">
                 Forma de pagamento
             </div>
             <div class="panel-body"   >
@@ -34,9 +34,9 @@
 
                         <li> <button type="button" id="cashPayment" class="btn btn-success" style="height: 70px; width: 150px"> <i class="fa fa-money"></i><br><span>(F1) Dinheiro</span></button> </li>
                         <li> <button type="button" id="cashPaymentConfirm" class="btn btn-success" style="height: 70px; width: 150px; display: none"> <i class="fa fa-money"></i><br><span>(F1) Confirmar</span></button> </li>
-                        <li> <button type="button" id="add-btn" class="btn btn-primary" style="height: 70px; width: 150px"> <i class="fa fa-credit-card-alt "></i><br><span>(F2) Cartão débito</span></button> </li>
-                        <li> <button type="button" id="add-btn" class="btn btn-warning" style="height: 70px; width: 150px"> <i class="fa fa-credit-card "></i><br><span> (F4) Cartão Crédito</span></button> </li>
-                        <li> <button type="button" id="add-btn" class="btn btn-danger" style="height: 70px; width: 150px"> <i class="fa fa-credit-card-alt "></i><br><span>(F6) Cancelar</span></button> </li>
+                        <li> <button type="button" id="debitCardPayment" class="btn btn-primary" style="height: 70px; width: 150px"> <i class="fa fa-credit-card-alt "></i><br><span>(F2) Cartão débito</span></button> </li>
+                        <li> <button type="button" id="creditCardPayment" class="btn btn-warning" style="height: 70px; width: 150px"> <i class="fa fa-credit-card "></i><br><span> (F4) Cartão Crédito</span></button> </li>
+                        <li> <button type="button" id="cancel-btn" class="btn btn-danger" style="height: 70px; width: 150px"> <i class="fa fa-credit-card-alt "></i><br><span>(F6) Cancelar</span></button> </li>
                     </ul>
                 </div>
             </div>
@@ -44,8 +44,8 @@
     </div>
 
     <div class="col-lg-8">
-        <div class="panel panel-default" style="">
-            <div class="panel-heading">
+        <div class="panel panel-default" >
+            <div class="panel-heading" style="background-color: lightgrey;">
                 Buscar produtos
             </div>
             <div class="panel-body"   >
@@ -69,8 +69,8 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="panel panel-default" >
+            <div class="panel-heading" style="background-color: lightgrey;">
                 Itens da venda
             </div>
             <div class="panel-body" style="height: 300px; overflow-y: scroll"  >
@@ -93,7 +93,5 @@
         </div>
     </div>
 </row>
-<script src="<?php echo base_url('public/js/pages/pdv/debitCard.js')?>"></script>
-<script src="<?php echo base_url('public/js/pages/pdv/creditCard.js')?>"></script>
-<script src="<?php echo base_url('public/js/pages/pdv/cashPayment.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/jquery.maskMoney.js')?>"></script>
 <script src="<?php echo base_url('public/js/pages/pdv/search.js')?>"></script>

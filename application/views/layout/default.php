@@ -14,6 +14,7 @@
 	<link href="<?php echo base_url('public/css/tooltipup.css')?>" rel="stylesheet">
 	<link href="<?php echo base_url('public/css/table-list.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('public/css/jquery-confirm.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('public/css/c3.min.css')?>" rel="stylesheet">
 
 	<!--Custom Font-->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"> -->
@@ -28,15 +29,13 @@
 <script src="<?php echo base_url('public/js/plugins/datatables.min.js')?>"></script>
 <script src="<?php echo base_url('public/js/plugins/dataTables.responsive.js')?>"></script>
 <script src="<?php echo base_url('public/js/plugins/jquery.mask.js')?>"></script>
-<script src="<?php echo base_url('public/js/chart.min.js')?>"></script>
-<script src="<?php echo base_url('public/js/chart-data.js')?>"></script>
-<script src="<?php echo base_url('public/js/easypiechart.js')?>"></script>
-<script src="<?php echo base_url('public/js/easypiechart-data.js')?>"></script>
 <script src="<?php echo base_url('public/js/bootstrap-datepicker.js')?>"></script>
 <script src="<?php echo base_url('public/js/custom.js')?>"></script>
 <script src="<?php echo base_url('public/js/table-list.js')?>"></script>
 <script src="<?php echo base_url('public/js/plugins/notify.js')?>"></script>
 <script src="<?php echo base_url('public/js/plugins/jquery-confirm.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/c3.min.js')?>"></script>
+<script src="<?php echo base_url('public/js/plugins/d3-4.13.0.min.js')?>"></script>
 <body>
     <input type="hidden" id="url" value="<?php echo $this->uri->segment(1)?>">
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -80,7 +79,7 @@
 <!---------------------------------------------PDV--------------------------------------------------------------------->
             <li<?php if($this->uri->segment(1)=="pdv"):?>
                 class="active"<?php endif;?>><a href="<?php echo base_url('pdv')?>">
-                    <em class="fa fa-users"></em> Pdv</a></li>
+                    <em class="fa fa-handshake-o"></em> Pdv</a></li>
 <!---------------------------------------------CLIENTES*--------------------------------------------------------------->
             <?php if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1): ?>
                 <li<?php if($this->uri->segment(1)=="customers"):?>
@@ -144,13 +143,19 @@
             <?php if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1):?>
                 <li class="parent "><a data-toggle="collapse" href="#sub-item-3">
                         <em class="fa fa-bar-chart">&nbsp;</em> Relatórios <span data-toggle="collapse"
-                         href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                         href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
                     </a>
                     <ul class="children collapse" id="sub-item-3">
-<!---------------------------------------------RELATÓRIOS_FLUXO_DE_CAIXA----------------------------------------------->
-                        <li ><a <?php if($this->uri->segment(1)=="cashFlow"):?>
-                                class="active"<?php endif;?> href="<?php echo base_url('cashFlow')?>">
-                                <span class="fa fa-arrow-right">&nbsp;</span> Fluxo de caixa
+<!---------------------------------------------RELATÓRIOS_FLUXO_DE_CAIXA REALIZADO------------------------------------->
+                        <li><a <?php if($this->uri->segment(1)=="cashFlow" && $this->uri->segment(2)=="planned"):?>
+                                class="active"<?php endif;?> href="<?php echo base_url('cashFlow/planned')?>">
+                                <span class="fa fa-arrow-right">&nbsp;</span> F.caixa planejado
+                            </a>
+                        </li>
+<!---------------------------------------------RELATÓRIOS_FLUXO_DE_CAIXA REALIZADO------------------------------------->
+                        <li><a <?php if($this->uri->segment(1)=="cashFlow" && $this->uri->segment(2)=="accomplished"):?>
+                                class="active"<?php endif;?> href="<?php echo base_url('cashFlow/accomplished')?>">
+                                <span class="fa fa-arrow-right">&nbsp;</span> F.caixa realizado
                             </a>
                         </li>
                     </ul>

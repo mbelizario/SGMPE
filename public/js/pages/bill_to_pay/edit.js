@@ -26,7 +26,9 @@ $('#edit-btn').on('click', function(){
     var payDay                      = $('#payDay').val();
     var type                        = $('#type').val();
     var complementaryInformation    = $('#complementaryInformation').val();
-
+    //tratando a entrada para ser inserida adequadamente no banco
+    amount = parseFloat(amount).toFixed(2);
+    paidAmount = parseFloat(paidAmount).toFixed(2);
     var base_url    = $('#base_url').val();
 
     var dataString =
@@ -36,8 +38,8 @@ $('#edit-btn').on('click', function(){
             supplier                    : supplier,
             issueDate                   : issueDate,
             dueDate                     : dueDate,
-            amount                      : amount,
-            paidAmount                  : paidAmount,
+            amount                      : amount.replace(".",","),
+            paidAmount                  : paidAmount.replace(".",","),
             payDay                      : payDay,
             type                        : type,
             complementaryInformation    : complementaryInformation

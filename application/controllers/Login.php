@@ -14,7 +14,23 @@ class Login extends CI_Controller {
 
    public function index()
    {
+       if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
+       {
 
+           $this->load->model('ManagerDashboard1');
+           $md = new ManagerDashboard1();
+           $result['billToPayNextSevenDays'] = $md->BillsToPayNextSevenDays();
+           $result['overdueBP'] = $md->overdueBillsToPay();
+           redirect(base_url('home'));
+       }
+       elseif ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 2)
+       {
+           redirect(base_url('home'));
+       }
+       /*else
+       {
+           redirect(base_url('login'));
+       }*/
    }
 
    public function isUser()

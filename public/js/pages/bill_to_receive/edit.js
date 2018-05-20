@@ -26,7 +26,9 @@ $('#edit-btn').on('click', function(){
     var receiptDay                  = $('#receiptDay').val();
     var type                        = $('#type').val();
     var complementaryInformation    = $('#complementaryInformation').val();
-
+    //tratando a entrada para ser inserida adequadamente no banco
+    amount = parseFloat(amount).toFixed(2);
+    receivedAmount = parseFloat(receivedAmount).toFixed(2);
     var base_url    = $('#base_url').val();
 
     var dataString =
@@ -36,8 +38,8 @@ $('#edit-btn').on('click', function(){
             customer                    : customer,
             issueDate                   : issueDate,
             dueDate                     : dueDate,
-            amount                      : amount,
-            receivedAmount              : receivedAmount,
+            amount                      : amount.replace(".",","),
+            receivedAmount              : receivedAmount.replace(".",","),
             receiptDay                  : receiptDay,
             // type                        : type,
             complementaryInformation    : complementaryInformation

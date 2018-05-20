@@ -114,7 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $bill->issue_date                   = $this->input->post('issueDate');
                     $bill->due_date                     = $this->input->post('dueDate');
                     $bill->amount                       = $this->input->post('amount');
-                    $bill->receivedAmount               = $this->input->post('receivedAmount');
+                    $bill->received_amount              = $this->input->post('receivedAmount');
                     $bill->receipt_day                  = $this->input->post('receiptDay');
                     $bill->bill_to_pay_type_id          = $this->input->post('type');
                     $bill->complementary_information    = $this->input->post('complementaryInformation');

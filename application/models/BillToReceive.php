@@ -25,7 +25,7 @@ class BillToReceive extends CI_Model
 
         return $this->db->query("SELECT  *, to_char(issue_date, 'DD/MM/YYYY') as issue_date, 
         to_char(due_date, 'DD/MM/YYYY') as due_date, to_char(receipt_day, 'DD/MM/YYYY') as receipt_day
-         FROM bills_to_receive")->result();
+         FROM bills_to_receive WHERE receipt_day isnull")->result();
     }
     //Busca uma conta a receber específica, com base em seu id
     function getOne()
@@ -87,32 +87,36 @@ class BillToReceive extends CI_Model
         return true;
     }
 
-    function sumBillsToReceivePerMonth($year)
+    function sumBillsToReceivePerMonth($year, $cashFlowType)
     {
+        if($cashFlowType == 1) // fluxo de caixa planejado
+            $field = "due_date";
+        elseif($cashFlowType == 2) //fluxo de caixa realizado
+            $field = "receipt_day";
         $result['jan'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-01-01'::DATE AND receipt_day <= '$year-01-31'::DATE")->result();
+        WHERE $field >= '$year-01-01'::DATE AND $field <= '$year-01-31'::DATE")->result();
         $result['feb'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-02-01'::DATE AND receipt_day <= '$year-02-28'::DATE")->result();
+        WHERE $field >= '$year-02-01'::DATE AND $field <= '$year-02-28'::DATE")->result();
         $result['mar'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-03-01'::DATE AND receipt_day <= '$year-03-31'::DATE")->result();
+        WHERE $field >= '$year-03-01'::DATE AND $field <= '$year-03-31'::DATE")->result();
         $result['apr'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-04-01'::DATE AND receipt_day <= '$year-04-30'::DATE ")->result();
+        WHERE $field >= '$year-04-01'::DATE AND $field <= '$year-04-30'::DATE ")->result();
         $result['may'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-05-01'::DATE AND receipt_day <= '$year-05-31'::DATE")->result();
+        WHERE $field >= '$year-05-01'::DATE AND $field <= '$year-05-31'::DATE")->result();
         $result['jun'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-06-01'::DATE AND receipt_day <= '$year-06-30'::DATE")->result();
+        WHERE $field >= '$year-06-01'::DATE AND $field <= '$year-06-30'::DATE")->result();
         $result['jul'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-07-01'::DATE AND receipt_day <= '$year-07-31'::DATE")->result();
+        WHERE $field >= '$year-07-01'::DATE AND $field <= '$year-07-31'::DATE")->result();
         $result['aug'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-08-01'::DATE AND receipt_day <= '$year-08-31'::DATE")->result();
+        WHERE $field >= '$year-08-01'::DATE AND $field <= '$year-08-31'::DATE")->result();
         $result['sep'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-09-01'::DATE AND receipt_day <= '$year-09-30'::DATE")->result();
+        WHERE $field >= '$year-09-01'::DATE AND $field <= '$year-09-30'::DATE")->result();
         $result['oct'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-10-01'::DATE AND receipt_day <= '$year-10-31'::DATE")->result();
+        WHERE $field >= '$year-10-01'::DATE AND $field <= '$year-10-31'::DATE")->result();
         $result['nov'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-11-01'::DATE AND receipt_day <= '$year-11-30'::DATE")->result();
+        WHERE $field >= '$year-11-01'::DATE AND $field <= '$year-11-30'::DATE")->result();
         $result['dec'] = $this->db->query("SELECT sum(received_amount) FROM bills_to_receive 
-        WHERE receipt_day >= '$year-12-01'::DATE AND receipt_day <= '$year-12-31'::DATE")->result();
+        WHERE $field >= '$year-12-01'::DATE AND $field <= '$year-12-31'::DATE")->result();
         return $result;
     }
 

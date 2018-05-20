@@ -9,6 +9,14 @@ var flag = false;
 
 var flagCash = false;
 //tratamento dos atalhos
+$(document).ready( function(){
+    $(".moneyValues").maskMoney({
+        prefix: "R$:",
+        decimal: ",",
+        thousands: "."
+    });
+    console.log("CARREGOU");
+});
 $(document).on('keydown', function(e){
     if(e.keyCode === 112 && flag === false)
     {
@@ -32,11 +40,12 @@ $(document).on('keydown', function(e){
             flag = true;
             cashPaymentConfirm()
 
-        }else if(flag === false && flagCash === false)
-            {
+        }
+        else if(flag === false && flagCash === false)
+        {
                 flag = true;
                 cashPayment();
-            }
+        }
     }
 
     if(e.keyCode === 113 && flag === false)
@@ -88,16 +97,155 @@ $(document).on('keydown', function(e){
         }
     }
 
+    if(e.keyCode === 119 && flag === false)
+    {
+        if(totalPayable > 0)
+        {
+            $.confirm({
+                title: 'Confirmar',
+                content: 'Deseja realmente CANCELAR a venda?',
+                buttons: {
+                    confirmar: function ()
+                    {
+                        $("#totalPayable").val(0);
+                        totalPayable = 0;
+                        removeAllTr();
+                        flag = false;
+                        products = [];
+                        flagCash = false;
+                        $('#paidAmount').val(0);
+                        $('#excess').val(0);
+                        $('#cashPayment').css("display", "block");// mostra o botao "Dinheiro"
+                        $('#cashPaymentConfirm').css("display", "none"); //esconde o botao "Confirmar"
+
+                    },
+                    cancelar: function () {
+                        flag = false;
+                    }
+                }
+            });
+
+        }
+    }
+
+    if(e.keyCode === 121)
+    {
+        $("#quantity").focus();
+    }
+
+});
+
+$("#cashPayment").on("click", function(){
+    if(totalPayable == 0 && flag === false)
+    {
+        flag = true;
+        $.alert({
+            title: 'Alerta!',
+            content: 'Por favor, primeiro selecione os produtos!',
+            buttons: {
+                OK: function () {
+                    flag = false
+                }
+            }
+
+        });
+    }
+    else if(flag === false && flagCash === true)
+    {
+        flag = true;
+        cashPaymentConfirm()
+
+    }
+    else if(flag === false && flagCash === false)
+    {
+        flag = true;
+        cashPayment();
+    }
+});
+$("#debitCardPayment").on("click", function(){
+    if(totalPayable == 0 && flag === false)
+    {
+        flag = true;
+        $.alert({
+            title: 'Alerta!',
+            content: 'Por favor, primeiro selecione os produtos!',
+            buttons: {
+                OK: function () {
+                    flag = false
+                }
+            }
+
+        });
+    }
+    else
+    {
+        flag = true;
+        debitCard();
+
+    }
+
+});
+$("#creditCardPayment").on("click", function(){
+    if(totalPayable == 0 && flag === false)
+    {
+        flag = true;
+        $.alert({
+            title: 'Alerta!',
+            content: 'Por favor, primeiro selecione os produtos!',
+            buttons: {
+                OK: function () {
+                    flag = false
+                }
+            }
+
+        });
+    }
+    else
+    {
+        flag = true;
+        creditCard();
+
+    }
+
+});
+$("#cancel-btn").on("click", function(){
+    if(totalPayable > 0)
+    {
+        $.confirm({
+            title: 'Confirmar',
+            content: 'Deseja realmente CANCELAR a venda?',
+            buttons: {
+                confirmar: function ()
+                {
+                    $("#totalPayable").val(0);
+                    totalPayable = 0;
+                    removeAllTr();
+                    flag = false;
+                    products = [];
+                    flagCash = false;
+                    $('#paidAmount').val("");
+                    $('#excess').val("");
+                    $('#cashPayment').css("display", "block");// mostra o botao "Dinheiro"
+                    $('#cashPaymentConfirm').css("display", "none"); //esconde o botao "Confirmar"
+
+                },
+                cancelar: function () {
+                    flag = false;
+                }
+            }
+        });
+    }
+
 });
 /*-------------------------------------------------cashPayment--------------------------------------------------------*/
 function cashPayment(){
     $.confirm({
         title: 'Valor da venda: R$ '+totalPayable,
         content: '' +
-        '<form action="" class="formName">' +
+        '<form>' +
         '<div class="form-group">' +
         '<label>Valor pago</label>' +
-        '<input type="text" placeholder="Valor pago" id="paidAmountConfirm" class="name form-control" required />' +
+        '<input placeholder="Valor pago" id="paidAmountConfirm" name="paidAmountConfirm" class="form-control moneyValues"  />' +
         '</div>' +
         '</form>',
         buttons: {
@@ -120,8 +268,9 @@ function cashPayment(){
                 else
                     {
                         $('#paidAmount').val(paidAmountConfirm);
-                        excess = paidAmountConfirm - totalPayable; // calcula o valor do troco
-                        $('#excess').val(excess); // coloca o valor no input
+                        excess = parseFloat(paidAmountConfirm )- parseFloat(totalPayable); // calcula o valor do troco
+                        excess = excess.toFixed(2);
+                        $('#excess').val("R$: "+excess); // coloca o valor no input
                         $('#cashPayment').css("display", "none");// esconde o botao "Dinheiro"
                         $('#cashPaymentConfirm').css("display", "block"); //mostra o botao "Confirmar"
                         flagCash = true;
@@ -146,23 +295,24 @@ function cashPaymentConfirm()
             {
                 var dataString = {
                     products        : products,
-                    totalPayable    : totalPayable,
+                    totalPayable    : totalPayable.replace(".", ","),
                     paymentType            : 1
                 };
+                console.log(dataString);
                 $.ajax({
                     type: "POST",
                     url: base_url+'pdv/add',
                     data: dataString,
                     success: function(response)
                     {
-                        $("#totalPayable").val(0);
+                        $("#totalPayable").val("R$: 0.00");
                         totalPayable = 0;
                         removeAllTr();
                         flag = false;
                         products = [];
                         flagCash = false;
-                        $('#paidAmount').val(0);
-                        $('#excess').val(0);
+                        $('#paidAmount').val("");
+                        $('#excess').val("");
                         $('#cashPayment').css("display", "block");// mostra o botao "Dinheiro"
                         $('#cashPaymentConfirm').css("display", "none"); //esconde o botao "Confirmar"
                     },
@@ -189,7 +339,7 @@ function debitCard()
             {
                 var dataString = {
                     products        : products,
-                    totalPayable    : totalPayable,
+                    totalPayable    : totalPayable.replace(".", ","),
                     paymentType            : 2
                 };
                 $.ajax({
@@ -198,7 +348,7 @@ function debitCard()
                     data: dataString,
                     success: function(response)
                     {
-                        $("#totalPayable").val(0);
+                        $("#totalPayable").val("R$: 0.00");
                         totalPayable = 0;
                         removeAllTr();
                         flag = false;
@@ -228,9 +378,10 @@ function creditCard()
             {
                 var dataString = {
                     products               : products,
-                    totalPayable           : totalPayable,
+                    totalPayable           : totalPayable.replace(".", ","),
                     paymentType            : 3
                 };
+                console.log(dataString);
                 $.ajax({
                     type: "POST",
                     url: base_url+'pdv/add',
@@ -292,8 +443,13 @@ $('#btn-search-product').on('click', function(){
                 products.push(p);//coloca o objeto em um array;
 
                 var subtotal =  quantity * price;
-                totalPayable = totalPayable+subtotal;
-                $('#totalPayable').val(totalPayable);
+                subtotal = parseFloat(subtotal).toFixed(2);
+                // totalPayable = parseFloat(totalPayable);
+                // totalPayable = totalPayable.replace("R$: ","");
+                totalPayable = parseFloat(totalPayable)+parseFloat(subtotal);
+                totalPayable = totalPayable.toFixed(2);
+                price = parseFloat(price).toFixed(2);
+                $('#totalPayable').val("R$: "+totalPayable);
                 var newRoll = $("<tr class='prod'>");
                 var cols = "";
                 cols += '<td>'+quantity+'</td>';
@@ -329,9 +485,10 @@ function removeTr(item,id, quantity, subtotal)
     var tr = item.closest('tr');
 
     tr.remove();
-    var totalPayable = parseFloat($('#totalPayable').val());
-    totalPayable = totalPayable - subtotal;
-    $('#totalPayable').val(totalPayable);
+     // totalPayable = parseFloat($('#totalPayable').val());
+    totalPayable = parseFloat(totalPayable )- parseFloat(subtotal);
+    totalPayable = totalPayable.toFixed(2);
+    $('#totalPayable').val("R$: "+totalPayable);
     $.map(products, function(val, i){
         if(val)
         {
@@ -341,6 +498,7 @@ function removeTr(item,id, quantity, subtotal)
 
 
     });
+
 }
 
 

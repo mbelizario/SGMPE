@@ -23,7 +23,7 @@ class BillToPay extends CI_Model
 //        return $this->db->get('bills_to_pay')->result();
         return $this->db->query("SELECT  *, to_char(issue_date, 'DD/MM/YYYY') as issue_date, 
         to_char(due_date, 'DD/MM/YYYY') as due_date, to_char(pay_day, 'DD/MM/YYYY') as pay_day
-         FROM bills_to_pay")->result();
+         FROM bills_to_pay WHERE pay_day isnull")->result();
     }
     //Busca uma conta a pagar específica, com base em seu id
     function getOne()
@@ -84,73 +84,84 @@ class BillToPay extends CI_Model
         return true;
     }
     //retorna a soma das contas a pagar por mês filtradas pelo tipo
-    function sumBillsToPayTypesPerMonth($year, $type)
+    function sumBillsToPayTypesPerMonth($year, $type, $cashFlowType)
     {
+        
+        if($cashFlowType == 1) //fluxo de caixa planejado
+            $field = "due_date";
+        elseif($cashFlowType == 2) //fluxo de caixa realizado
+            $field = "pay_day";
+        
         $result['jan'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-01-01'::DATE AND pay_day <= '$year-01-31'::DATE and 
+        WHERE $field >= '$year-01-01'::DATE AND $field <= '$year-01-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['feb'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-02-01'::DATE AND pay_day <= '$year-02-28'::DATE and 
+        WHERE $field >= '$year-02-01'::DATE AND $field <= '$year-02-28'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['mar'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-03-01'::DATE AND pay_day <= '$year-03-31'::DATE and 
+        WHERE $field >= '$year-03-01'::DATE AND $field <= '$year-03-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['apr'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-04-01'::DATE AND pay_day <= '$year-04-30'::DATE and 
+        WHERE $field >= '$year-04-01'::DATE AND $field <= '$year-04-30'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['may'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-05-01'::DATE AND pay_day <= '$year-05-31'::DATE and 
+        WHERE $field >= '$year-05-01'::DATE AND $field <= '$year-05-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['jun'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-06-01'::DATE AND pay_day <= '$year-06-30'::DATE and 
+        WHERE $field >= '$year-06-01'::DATE AND $field <= '$year-06-30'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['jul'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-07-01'::DATE AND pay_day <= '$year-07-31'::DATE and 
+        WHERE $field >= '$year-07-01'::DATE AND $field <= '$year-07-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['aug'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-08-01'::DATE AND pay_day <= '$year-08-31'::DATE and 
+        WHERE $field >= '$year-08-01'::DATE AND $field <= '$year-08-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['sep'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-09-01'::DATE AND pay_day <= '$year-09-30'::DATE and 
+        WHERE $field >= '$year-09-01'::DATE AND $field <= '$year-09-30'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['oct'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-10-01'::DATE AND pay_day <= '$year-10-31'::DATE and 
+        WHERE $field >= '$year-10-01'::DATE AND $field <= '$year-10-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['nov'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-11-01'::DATE AND pay_day <= '$year-11-30'::DATE and 
+        WHERE $field >= '$year-11-01'::DATE AND $field <= '$year-11-30'::DATE and 
         bill_to_pay_type_id = $type")->result();
         $result['dec'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-12-01'::DATE AND pay_day <= '$year-12-31'::DATE and 
+        WHERE $field >= '$year-12-01'::DATE AND $field <= '$year-12-31'::DATE and 
         bill_to_pay_type_id = $type")->result();
         return $result;
     }
+    
     //retorna a soma das contas a pagar por mês
-    function sumBillsToPayPerMonth($year)
+    function sumBillsToPayPerMonth($year, $cashFlowType)
     {
+        if($cashFlowType == 1) //fluxo de caixa planejado
+            $field = "due_date";
+        elseif($cashFlowType == 2) //fluxo de caixa realizado
+            $field = "pay_day";
         $result['jan'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-01-01'::DATE AND pay_day <= '$year-01-31'::DATE")->result();
+        WHERE $field >= '$year-01-01'::DATE AND $field <= '$year-01-31'::DATE")->result();
         $result['feb'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-02-01'::DATE AND pay_day <= '$year-02-28'::DATE")->result();
+        WHERE $field >= '$year-02-01'::DATE AND $field <= '$year-02-28'::DATE")->result();
         $result['mar'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-03-01'::DATE AND pay_day <= '$year-03-31'::DATE")->result();
+        WHERE $field >= '$year-03-01'::DATE AND $field <= '$year-03-31'::DATE")->result();
         $result['apr'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-04-01'::DATE AND pay_day <= '$year-04-30'::DATE ")->result();
+        WHERE $field >= '$year-04-01'::DATE AND $field <= '$year-04-30'::DATE ")->result();
         $result['may'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-05-01'::DATE AND pay_day <= '$year-05-31'::DATE")->result();
+        WHERE $field >= '$year-05-01'::DATE AND $field <= '$year-05-31'::DATE")->result();
         $result['jun'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-06-01'::DATE AND pay_day <= '$year-06-30'::DATE")->result();
+        WHERE $field >= '$year-06-01'::DATE AND $field <= '$year-06-30'::DATE")->result();
         $result['jul'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-07-01'::DATE AND pay_day <= '$year-07-31'::DATE")->result();
+        WHERE $field >= '$year-07-01'::DATE AND $field <= '$year-07-31'::DATE")->result();
         $result['aug'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-08-01'::DATE AND pay_day <= '$year-08-31'::DATE")->result();
+        WHERE $field >= '$year-08-01'::DATE AND $field <= '$year-08-31'::DATE")->result();
         $result['sep'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-09-01'::DATE AND pay_day <= '$year-09-30'::DATE")->result();
+        WHERE $field >= '$year-09-01'::DATE AND $field <= '$year-09-30'::DATE")->result();
         $result['oct'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-10-01'::DATE AND pay_day <= '$year-10-31'::DATE")->result();
+        WHERE $field >= '$year-10-01'::DATE AND $field <= '$year-10-31'::DATE")->result();
         $result['nov'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-11-01'::DATE AND pay_day <= '$year-11-30'::DATE")->result();
+        WHERE $field >= '$year-11-01'::DATE AND $field <= '$year-11-30'::DATE")->result();
         $result['dec'] = $this->db->query("SELECT sum(paid_amount) FROM bills_to_pay 
-        WHERE pay_day >= '$year-12-01'::DATE AND pay_day <= '$year-12-31'::DATE")->result();
+        WHERE $field >= '$year-12-01'::DATE AND $field <= '$year-12-31'::DATE")->result();
         return $result;
     }
 

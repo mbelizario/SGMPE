@@ -46,7 +46,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="#"><span>SG</span>MPE</a>
+            <a class="navbar-brand" href="<?php echo base_url('home'); ?>"><span>SG</span>MPE</a>
             <ul class="nav navbar-top-links navbar-right">
                 <a href="<?php echo base_url('login/logout')?>" class="navbar-brand" style="text-transform:None; font-size: 15px"><strong><em class="fa fa-power-off">&nbsp;</em>Sair</strong></a>
                 <!-- <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a> -->

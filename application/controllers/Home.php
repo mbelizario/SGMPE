@@ -16,7 +16,11 @@ class Home extends CI_Controller {
 	{
         if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1)
         {
-		    $this->load->view('pages/home/home');
+            $this->load->model('ManagerDashboard1');
+            $md = new ManagerDashboard1();
+            $result['billToPayNextSevenDays'] = $md->BillsToPayNextSevenDays();
+            $result['overdueBP'] = $md->overdueBillsToPay();
+		    $this->load->view('pages/home/manager_home', $result);
         }
         elseif ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 2)
         {

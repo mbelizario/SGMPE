@@ -11,14 +11,16 @@ $(document).ready(function()
         var cost = $("#cost").maskMoney('unmasked')[0];
         var price = $("#price").maskMoney('unmasked')[0];
         var profit = price - cost;
-        console.log('cost: '+cost+ ' price: '+price+' total: '+profit);
+        var profit = parseFloat(price )- parseFloat(cost);
+        profit = profit.toFixed(2);
         $('#profit').val(profit);
 
     });
     $("#cost").keyup(function(){
         var cost = $("#cost").maskMoney('unmasked')[0];
         var price = $("#price").maskMoney('unmasked')[0];
-        var profit = price - cost;
+        var profit = parseFloat(price )- parseFloat(cost);
+        profit = profit.toFixed(2);
         $('#profit').val(profit);
 
     });
@@ -44,7 +46,7 @@ $('#edit-btn').on('click', function(){
         name                : name,
         cost                : cost,
         price               : price,
-        profit              : profit,
+        profit              : profit.replace(".",","),
         quantity            : quantity,
         category            : category
     };
