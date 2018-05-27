@@ -20,6 +20,8 @@ class Pdv1 extends CI_Model
           'quantity' => $this->quantity,
           'unit_price' => $this->unit_price
         );
+        $this->db->query("UPDATE products SET quantity = quantity - $this->quantity 
+                          WHERE id = $this->product_id");
         $this->db->insert('bills_to_receive_x_products', $data);
         return true;
     }

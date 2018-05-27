@@ -26,7 +26,12 @@ class Product extends CI_Model
         $this->db->where('id', $this->id);
         return $this->db->get('products')->result();
     }
-//    pega um produto especifico com base em seu codigo interno
+    //busca os produtos de uma determinada categoria
+    function getByCategory($category)
+    {
+        return $this->db->query("SELECT id, name FROM products WHERE product_category_id = $category")->result();
+    }
+    //    pega um produto especifico com base em seu codigo interno
     function getOneByInternalCode()
     {
         return $this->db->query("select id, internal_code, name, cost::money::numeric::float8, 

@@ -15,7 +15,6 @@ $(document).ready( function(){
         decimal: ",",
         thousands: "."
     });
-    console.log("CARREGOU");
 });
 $(document).on('keydown', function(e){
     if(e.keyCode === 112 && flag === false)
