@@ -34,7 +34,9 @@ class CashFlow extends CI_Controller
             $result['billsToReceive'] = $billsToReceive->sumBillsToReceivePerMonth(2018, 2);
             $result['cumulativeAvailability'] = $cashFlow->calculateCumulativeAvailability(2018, 2);
             $result['desiredValues'] = $cashFlow->getDesiredValues(2018);
-            $result['finalResult'] = $cashFlow->calculateFinalResult(2018, 2);
+//            $result['finalResult'] = $cashFlow->calculateFinalResult(2018, 2);
+
+
 
             $this->load->view('pages/cash_flow/accomplished', $result);
         } else//se não estiver logado

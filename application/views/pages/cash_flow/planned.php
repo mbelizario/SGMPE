@@ -2,7 +2,7 @@
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><em class="fa fa-home"></em>
             </a></li>
-        <li class="active">Fluxo de caixa planejado</li>
+        <li class="active">Fluxo de caixa realizado</li>
     </ol>
 </div><!--/.row-->
 
@@ -13,7 +13,7 @@
             <input type="hidden" id='base_url' value="<?php echo base_url();?>">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-lg-8">Fluxo de caixa planejado</div>
+                    <div class="col-lg-8">Fluxo de caixa realizado </div>
                     <div class="col-lg-4">                    <div class="form-group" id="form-type">
 
                             <select id="semester" name='semester' class="form-control">
@@ -33,7 +33,7 @@
                     <table class="table table-bordered table-hover" >
                         <thead>
                         <tr class="active">
-                            <th style="width: 2%;"></th>
+                            <th style="width: 15%;"></th>
                             <th>Janeiro</th>
                             <th>Fevereiro</th>
                             <th>Março</th>
@@ -44,6 +44,16 @@
                         </thead>
 
                         <tbody>
+                        <!-----------------------------------------------Saldo inicial--------------------------------------------------------->
+                        <tr class="success">
+                            <td><b>Saldo inicial</b></td>
+                            <td id="inicialValueJan">R$ 0,00</td>
+                            <td id="inicialValueFeb"></td>
+                            <td id="inicialValueMar"></td>
+                            <td id="inicialValueApr"></td>
+                            <td id="inicialValueMay"></td>
+                            <td id="inicialValueJun"></td>
+                        </tr>
                         <!-----------------------------------------------Entradas-------------------------------------------------------------->
                         <tr class="success">
                             <td><b>1- Entradas</b></td>
@@ -214,44 +224,54 @@
                             </td>
 
                         </tr>
-                        <!----------------------------------Disponibilidade acumulada---------------------------------------------------------->
+                        <!----------------------------------Saldo do mes------------------------------------------------------------------------>
                         <tr class="info">
-                            <td>Disponibilidade acumulada</td>
-                            <td
+                            <td>Saldo do mês</td>
+                            <td id="monthValueJan"
                                 <?php echo ($cumulativeAvailability['jan'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['jan'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueFeb"
                                 <?php echo ($cumulativeAvailability['feb'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo $cumulativeAvailability['feb'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueMar"
                                 <?php echo ($cumulativeAvailability['mar'][0]->case == 't'?
-                                    false : "style='color: red' ") ;?>>
+                                    false : "style='color: red' ") ;?> id="mar">
                                 <?php echo$cumulativeAvailability['mar'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueApr"
                                 <?php echo ($cumulativeAvailability['apr'][0]->case == 't' ?
-                                    false : "style='color: red' " ) ;?>>
+                                    false : "style='color: red' " ) ;?> id="apr">
                                 <?php echo$cumulativeAvailability['apr'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueMay"
                                 <?php echo ($cumulativeAvailability['may'][0]->case == 't'?
-                                    false : "style='color: red' ") ;?>>
+                                    false : "style='color: red' ") ;?> id="may">
                                 <?php echo$cumulativeAvailability['may'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueJun"
                                 <?php echo ($cumulativeAvailability['jun'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['jun'][0]->result?>
                             </td>
+                        </tr>
+                        <!-----------------------------------------------Saldo total----------------------------------------------------------->
+                        <tr class="info">
+                            <td>Saldo total</td>
+                            <td id="finalValueJan"></td>
+                            <td id="finalValueFeb"></td>
+                            <td id="finalValueMar"></td>
+                            <td id="finalValueApr"></td>
+                            <td id="finalValueMay"></td>
+                            <td id="finalValueJun"></td>
                         </tr>
                         <!-----------------------------------------------Nível desejado-------------------------------------------------------->
                         <tr class="info">
@@ -276,80 +296,80 @@
                             </td>
                         </tr>
                         <!----------------------------------Resultado final-------------------------------------------------------------------->
-                        <tr class="info" style="font-weight: bold">
-                            <td>Resultado Final</td>
-                            <td>
-                                <?php
-                                if(isset($finalResult['jan'][0]->final_result )):
-                                    echo ($finalResult['jan'][0]->case == 't'?
-                                        "Aplicar ". $finalResult['jan'][0]->final_result :
-                                        "<span style='color: red'>Resgatar</span> ".
-                                        $finalResult['jan'][0]->final_result);
-                                else:
-                                    echo "Sem resultado";
-                                endif;?>
-                            </td>
+                        <!--<tr class="info" style="font-weight: bold">
+                                    <td>Resultado Final</td>
+                                    <td>
+                                        <?php /*
+                                        if(isset($finalResult['jan'][0]->final_result )):
+                                            echo ($finalResult['jan'][0]->case == 't'?
+                                            "Aplicar ". $finalResult['jan'][0]->final_result :
+                                            "<span style='color: red'>Resgatar</span>".
+                                            $finalResult['jan'][0]->final_result);
+                                        else:
+                                            echo "Sem resultado";
+                                        endif;*/?>
+                                    </td>
 
-                            <td>
-                                <?php
-                                if(isset($finalResult['feb'][0]->final_result )):
-                                    echo ($finalResult['feb'][0]->case == 't'?
-                                        "Aplicar ". $finalResult['feb'][0]->final_result :
-                                        "<span style='color: red'>Resgatar</span> ".
-                                        $finalResult['feb'][0]->final_result);
-                                else:
-                                    echo "Sem resultado";
-                                endif;?>
-                            </td>
+                                    <td>
+                                        <?php
+                        /*                                        if(isset($finalResult['feb'][0]->final_result )):
+                                                                    echo ($finalResult['feb'][0]->case == 't'?
+                                                                        "Aplicar ". $finalResult['feb'][0]->final_result :
+                                                                        "<span style='color: red'>Resgatar</span> ".
+                                                                        $finalResult['feb'][0]->final_result);
+                                                                else:
+                                                                    echo "Sem resultado";
+                                                                endif;*/?>
+                                    </td>
 
-                            <td>
-                                <?php
-                                if(isset($finalResult['mar'][0]->final_result )):
-                                    echo ($finalResult['mar'][0]->case == 't'?
-                                        "Aplicar ". $finalResult['mar'][0]->final_result :
-                                        "<span style='color: red'>Resgatar</span> ".
-                                        $finalResult['mar'][0]->final_result);
-                                else:
-                                    echo "Sem resultado";
-                                endif;?>
-                            </td>
+                                    <td>
+                                        <?php
+                        /*                                        if(isset($finalResult['mar'][0]->final_result )):
+                                                                    echo ($finalResult['mar'][0]->case == 't'?
+                                                                        "Aplicar ". $finalResult['mar'][0]->final_result :
+                                                                        "<span style='color: red'>Resgatar</span> ".
+                                                                        $finalResult['mar'][0]->final_result);
+                                                                else:
+                                                                    echo "Sem resultado";
+                                                                endif;*/?>
+                                    </td>
 
-                            <td>
-                                <?php
-                                if(isset($finalResult['apr'][0]->final_result )):
-                                    echo ($finalResult['apr'][0]->case == 't'?
-                                        "Aplicar ". $finalResult['apr'][0]->final_result :
-                                        "<span style='color: red'>Resgatar</span> ".
-                                        $finalResult['apr'][0]->final_result);
-                                else:
-                                    echo "Sem resultado";
-                                endif;?>
-                            </td>
+                                    <td>
+                                        <?php
+                        /*                                        if(isset($finalResult['apr'][0]->final_result )):
+                                                                    echo ($finalResult['apr'][0]->case == 't'?
+                                                                        "Aplicar ". $finalResult['apr'][0]->final_result :
+                                                                        "<span style='color: red'>Resgatar</span> ".
+                                                                        $finalResult['apr'][0]->final_result);
+                                                                else:
+                                                                    echo "Sem resultado";
+                                                                endif;*/?>
+                                    </td>
 
-                            <td>
-                                <?php
-                                if(isset($finalResult['may'][0]->final_result )):
-                                    echo ($finalResult['may'][0]->case == 't'?
-                                        "Aplicar ". $finalResult['may'][0]->final_result :
-                                        "<span style='color: red'>Resgatar</span> ".
-                                        $finalResult['may'][0]->final_result);
-                                else:
-                                    echo "Sem resultado";
-                                endif;?>
-                            </td>
+                                    <td>
+                                        <?php
+                        /*                                        if(isset($finalResult['may'][0]->final_result )):
+                                                                    echo ($finalResult['may'][0]->case == 't'?
+                                                                        "Aplicar ". $finalResult['may'][0]->final_result :
+                                                                        "<span style='color: red'>Resgatar</span> ".
+                                                                        $finalResult['may'][0]->final_result);
+                                                                else:
+                                                                    echo "Sem resultado";
+                                                                endif;*/?>
+                                    </td>
 
-                            <td>
-                                <?php
-                                if(isset($finalResult['jun'][0]->final_result )):
-                                    echo ($finalResult['jun'][0]->case == 't'?
-                                        "Aplicar ". $finalResult['jun'][0]->final_result :
-                                        "<span style='color: red'>Resgatar</span> ".
-                                        $finalResult['jun'][0]->final_result);
-                                else:
-                                    echo "Sem resultado";
-                                endif;?>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <?php
+                        /*                                        if(isset($finalResult['jun'][0]->final_result )):
+                                                                    echo ($finalResult['jun'][0]->case == 't'?
+                                                                        "Aplicar ". $finalResult['jun'][0]->final_result :
+                                                                        "<span style='color: red'>Resgatar</span> ".
+                                                                        $finalResult['jun'][0]->final_result);
+                                                                else:
+                                                                    echo "Sem resultado";
+                                                                endif;*/?>
+                                    </td>
+                                </tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -358,7 +378,7 @@
                     <table class="table table-bordered table-hover" >
                         <thead>
                         <tr class="active">
-                            <th style="width: 2%;"></th>
+                            <th style="width: 15%;"></th>
                             <th>Julho</th>
                             <th>Agosto</th>
                             <th>Setembro</th>
@@ -369,6 +389,16 @@
                         </thead>
 
                         <tbody>
+                        <!-----------------------------------------------Saldo inicial--------------------------------------------------------->
+                        <tr class="success">
+                            <td><b>Saldo inicial</b></td>
+                            <td id="inicialValueJul"></td>
+                            <td id="inicialValueAug"></td>
+                            <td id="inicialValueSep"></td>
+                            <td id="inicialValueOct"></td>
+                            <td id="inicialValueNov"></td>
+                            <td id="inicialValueDec"></td>
+                        </tr>
                         <!-----------------------------------------------Entradas-------------------------------------------------------------->
                         <tr class="success">
                             <td><b>1- Entradas</b></td>
@@ -547,44 +577,54 @@
                             </td>
 
                         </tr>
-                        <!-----------------------------------------------Disponibilidade acumulada--------------------------------------------->
+                        <!-----------------------------------------------Saldo final----------------------------------------------------------->
                         <tr class="info">
-                            <td>Disponibilidade acumulada</td>
-                            <td
+                            <td>Saldo do mês</td>
+                            <td id="monthValueJul"
                                 <?php echo ($cumulativeAvailability['jul'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['jul'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueAug"
                                 <?php echo ($cumulativeAvailability['aug'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['aug'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueSep"
                                 <?php echo ($cumulativeAvailability['sep'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['sep'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueOct"
                                 <?php echo ($cumulativeAvailability['oct'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['oct'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueNov"
                                 <?php echo ($cumulativeAvailability['nov'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['nov'][0]->result?>
                             </td>
 
-                            <td
+                            <td id="monthValueDec"
                                 <?php echo ($cumulativeAvailability['dec'][0]->case == 't'?
                                     false : "style='color: red' ") ;?>>
                                 <?php echo$cumulativeAvailability['dec'][0]->result?>
                             </td>
+                        </tr>
+                        <!-----------------------------------------------Saldo total----------------------------------------------------------->
+                        <tr class="info">
+                            <td>Saldo total</td>
+                            <td id="finalValueJul"></td>
+                            <td id="finalValueAug"></td>
+                            <td id="finalValueSep"></td>
+                            <td id="finalValueOct"></td>
+                            <td id="finalValueNov"></td>
+                            <td id="finalValueDec"></td>
                         </tr>
                         <!-----------------------------------------------Nível desejado-------------------------------------------------------->
                         <tr class="info">
@@ -609,6 +649,81 @@
                             </td>
 
                         </tr>
+                        <!----------------------------------Resultado final-------------------------------------------------------------------->
+                        <!--<tr class="info" style="font-weight: bold">
+                            <td>Resultado Final</td>
+                            <td>
+                                <?php
+                        /*                                if(isset($finalResult['jul'][0]->final_result )):
+                                                            echo ($finalResult['jul'][0]->case == 't'?
+                                                                "Aplicar ". $finalResult['jul'][0]->final_result :
+                                                                "<span style='color: red'>Resgatar</span> ".
+                                                                $finalResult['jul'][0]->final_result);
+                                                        else:
+                                                            echo "Sem resultado";
+                                                        endif;*/?>
+                            </td>
+
+                            <td>
+                                <?php
+                        /*                                if(isset($finalResult['aug'][0]->final_result )):
+                                                            echo ($finalResult['aug'][0]->case == 't'?
+                                                                "Aplicar ". $finalResult['aug'][0]->final_result :
+                                                                "<span style='color: red'>Resgatar</span> ".
+                                                                $finalResult['aug'][0]->final_result);
+                                                        else:
+                                                            echo "Sem resultado";
+                                                        endif;*/?>
+                            </td>
+
+                            <td>
+                                <?php
+                        /*                                if(isset($finalResult['sep'][0]->final_result )):
+                                                            echo ($finalResult['sep'][0]->case == 't'?
+                                                                "Aplicar ". $finalResult['sep'][0]->final_result :
+                                                                "<span style='color: red'>Resgatar</span> ".
+                                                                $finalResult['sep'][0]->final_result);
+                                                        else:
+                                                            echo "Sem resultado";
+                                                        endif;*/?>
+                            </td>
+
+                            <td>
+                                <?php
+                        /*                                if(isset($finalResult['oct'][0]->final_result )):
+                                                            echo ($finalResult['oct'][0]->case == 't'?
+                                                                "Aplicar ". $finalResult['oct'][0]->final_result :
+                                                                "<span style='color: red'>Resgatar</span> ".
+                                                                $finalResult['oct'][0]->final_result);
+                                                        else:
+                                                            echo "Sem resultado";
+                                                        endif;*/?>
+                            </td>
+
+                            <td>
+                                <?php
+                        /*                                if(isset($finalResult['nov'][0]->final_result )):
+                                                            echo ($finalResult['nov'][0]->case == 't'?
+                                                                "Aplicar ". $finalResult['nov'][0]->final_result :
+                                                                "<span style='color: red'>Resgatar</span> ".
+                                                                $finalResult['nov'][0]->final_result);
+                                                        else:
+                                                            echo "Sem resultado";
+                                                        endif;*/?>
+                            </td>
+
+                            <td>
+                                <?php
+                        /*                                if(isset($finalResult['dec'][0]->final_result )):
+                                                            echo ($finalResult['dec'][0]->case == 't'?
+                                                                "Aplicar ". $finalResult['dec'][0]->final_result :
+                                                                "<span style='color: red'>Resgatar</span> ".
+                                                                $finalResult['dec'][0]->final_result);
+                                                        else:
+                                                            echo "Sem resultado";
+                                                        endif;*/?>
+                            </td>
+                        </tr>-->
 
                         </tbody>
                     </table>
@@ -979,5 +1094,7 @@
         </div>
     </div>
 </div>
+
 <script src="<?php echo base_url('public/js/plugins/jquery.maskMoney.js')?>"></script>
+<script src="<?php echo base_url('public/js/pages/cash_flow/calculate.js')?>"></script>
 <script src="<?php echo base_url('public/js/pages/cash_flow/cash_flow.js')?>"></script>
