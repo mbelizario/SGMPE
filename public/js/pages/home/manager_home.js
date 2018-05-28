@@ -99,6 +99,7 @@ function salesInLastSixMonths()
 
             var chart = c3.generate({
                 bindto: '#line-chart',
+
                 data: {
                     columns: [salesValues]
                 },
@@ -114,6 +115,7 @@ function salesInLastSixMonths()
                     }
                 }
             });
+
 
         },
         error: function(response)

@@ -436,7 +436,7 @@ $('#btn-search-product').on('click', function(){
                 var p = {// cria um objeto
                     id : id ,
                     quantity : quantity,
-                    price: price
+                    price: price.replace(".", ",")
                 };
 
                 products.push(p);//coloca o objeto em um array;
