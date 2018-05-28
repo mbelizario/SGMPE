@@ -141,7 +141,7 @@
             <?php endif;?>
 <!---------------------------------------------RELATÓRIOS-------------------------------------------------------------->
             <?php if ($this->session->userdata('isUser') && $this->session->userdata('user_type') == 1):?>
-                <li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+                <li class="parent "><a data-toggle="collapse" href="#sub-item-3" id="test">
                         <em class="fa fa-bar-chart">&nbsp;</em> Relatórios <span data-toggle="collapse"
                          href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
                     </a>
@@ -156,6 +156,12 @@
                         <li><a <?php if($this->uri->segment(1)=="cashFlow" && $this->uri->segment(2)=="accomplished"):?>
                                 class="active"<?php endif;?> href="<?php echo base_url('cashFlow/accomplished')?>">
                                 <span class="fa fa-arrow-right">&nbsp;</span> F.caixa realizado
+                            </a>
+                        </li>
+<!---------------------------------------------RELATÓRIOS_PONTO DE EQUILÍBRIO------------------------------------------>
+                        <li><a <?php if($this->uri->segment(1)=="breakeven"):?>
+                                class="active"<?php endif;?> href="<?php echo base_url('breakeven')?>">
+                                <span class="fa fa-arrow-right">&nbsp;</span> Ponto de equilíbrio
                             </a>
                         </li>
                     </ul>
@@ -179,4 +185,5 @@
 
 
 </body>
+
 </html>
